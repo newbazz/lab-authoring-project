@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+function allowDrop(ev) {
+	    ev.preventDefault();
+}
+function drag(ev) {
+	    ev.dataTransfer.setData("text", ev.target.id);
+}
+function drop(ev) {
+	ev.preventDefault();
+	var data = ev.dataTransfer.getData("text");
+	ev.target.appendChild(document.getElementById(data))
+}
+</script>
+<style>
+#div1{
+	border:2px solid black;
+	height:100px;
+	width:650px;
+}
+#final{
+	border:2px solid black;
+	height:100px;
+	width:650px;
+}
+#drag1{width:40px;margin-right:15px}
+#drag2{width:40px;margin-right:15px}
+#drag3{width:40px;margin-right:15px}
+#drag4{width:40px;margin-right:15px}
+#drag5{width:40px;margin-right:15px}
+#drag6{width:40px;margin-right:15px}
+#drag7{width:40px;margin-right:15px}
+#drag8{width:40px;margin-right:15px}
+#drag9{width:40px;margin-right:15px}
+#drag10{width:40px;margin-right:15px}
+</style>
+</head>
+<body>
+	<div  id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+		<img id="drag1" src="testtube.jpg" draggable="true" ondragstart="drag(event)" width="336" height="69">
+		<img id="drag2" src="Burette.jpg" draggable="true" ondragstart="drag(event)" width="336" height="69">
+		<img id="drag3" src="dropper.jpg" draggable="true" ondragstart="drag(event)" width="336" height="69">
+		<img id="drag4" src="halfflask.png" draggable="true" ondragstart="drag(event)" width="336" height="69">
+		<img id="drag5" src="pipette.jpg" draggable="true" ondragstart="drag(event)" width="336" height="69">
+		<img id="drag7" src="spatula.jpg" draggable="true" ondragstart="drag(event)" width="336" height="69">
+		<img id="drag8" src="1000mlflask.png" draggable="true" ondragstart="drag(event)" width="336" height="69">
+		<img id="drag9" src="phpaper.jpg" draggable="true" ondragstart="drag(event)" width="336" height="69">
+		<img id="drag10" src="beaker.png" draggable="true" ondragstart="drag(event)" width="336" height="69">
+		<img id="drag6" src="acid.jpg" draggable="true" ondragstart="drag(event)" width="336" height="69">
+	</div>
+	<div  id="final" ondrop="drop(event)" ondragover="allowDrop(event)">
+	</div>
+
+
+
+</body>
+</html> 
