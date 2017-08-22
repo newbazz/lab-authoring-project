@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function allowDrop(ev){
+	ev.preventDefault();
+}
+
+function drag(ev){
+	ev.dataTransfer.setData("text",ev.target.id);
+}
+
+function drop(ev){
+	ev.preventDefault();
+	var data = ev.dataTransfer.getData("text");
+	ev.target.appendChild(document.getElementById(data));
+}
+</script>
+<style>
+	#lib-div{display:inline-table;width:20%;margin-top:100px;}
+	#library{float:left;text-align:center;margin-left:100px;border:1px solid black;}
+	td{border:1px solid black;height:100px;padding:10px;}
+	#div5{display:inline;float:right;margin-top:100px;margin-right:40%;border:2px solid black;width:500px;min-height:500px;}
+	#div1,#div2,#div3,#div4,#div6,#div7,#div8,#div9{height:100px;width:50px;}
+	#div5>img{padding:20px;}
+</style>
+</head>
+<body>
+
+<div id="lib-div">
+<table id="library">
+
+<tr>
+
+	<td>
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img id="drag1" src="Burette.jpg" draggable="true" ondragstart="drag(event)" width="50" height="100">
+</div>
+	</td>
+	<td>
+<div id="div6" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img id="drag6" src="1000mlflask.png" draggable="true" ondragstart="drag(event)" width="50" height="100">
+</div>
+	</td>
+
+</tr>
+<tr>
+
+	<td>
+<div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img id="drag2" src="pipette.jpg" draggable="true" ondragstart="drag(event)" width="50" height="100">
+</div>
+	</td>
+	<td>
+<div id="div7" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img id="drag7" src="beaker.png" draggable="true" ondragstart="drag(event)" width="50" height="100">
+</div>
+	</td>
+
+</tr>
+<tr>
+
+	<td>
+<div id="div3" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img id="drag3" src="spatula.jpg" draggable="true" ondragstart="drag(event)" width="50" height="100">
+</div>
+	</td>
+	<td>
+<div id="div8" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img id="drag8" src="phpaper.jpg" draggable="true" ondragstart="drag(event)" width="50" height="100">
+</div>
+	</td>
+
+</tr>
+<tr>
+
+	<td>
+<div id="div4" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img id="drag4" src="dropper.jpg" draggable="true" ondragstart="drag(event)" width="50" height="100">
+</div>
+	</td>
+	<td>
+<div id="div9" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img id="drag9" src="testtube.jpg" draggable="true" ondragstart="drag(event)" width="50" height="100">
+</div>
+	</td>
+
+</tr>
+</table>
+</div>
+<div id="div5" ondrop="drop(event)" ondragover="allowDrop(event)">&nbsp;</div>
+</body>
+</html>
