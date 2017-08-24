@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Shovan's Practice</title>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<style type="text/css">
+		img{
+			height: 100px;
+			width: auto;
+		}
+
+		.rotating{
+			transition: transform 0.8s;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript" src="http://code.interactjs.io/v1.2.9/interact.min.js"></script>
+	<div class="w3-panel w3-blue w3-round-xlarge">
+	<p id="instructions">Try dragging the empty conical flask from left to right.</p>
+	</div>
+
+	<div>
+		<table border="1">
+			<tr>
+				<td>
+					<img class="draggable" src="./1000mlflask.png">
+				</td>
+				<td>
+					<img class="draggable" src="./acid.jpg">
+				</td>
+				<td width="1000px" rowspan="6"></td>
+			</tr>
+			<tr>
+				<td>
+					<img class="draggable" src="./beaker.png">
+				</td>
+				<td>
+					<img class="draggable" src="./Burette.jpg">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img class="draggable" src="./dropper.jpg">
+				</td>
+				<td>
+					<img class="draggable" src="./halfflask.png">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img class="draggable" src="./longpipette.jpg">
+				</td>
+				<td>
+					<img class="draggable" src="./phpaper.jpg">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img class="draggable" src="./pipette.jpg">
+				</td>
+				<td>
+					<img class="draggable" src="./spatula.jpg">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img class="draggable" src="./testtube.jpg">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<script type="text/javascript">
+	hasDragged=false
+	hasDoubleTapped=false
+	hasHeld=false
+	instr=document.getElementById("instructions")
+
+	interact('.draggable')
+		.on('doubletap', function(event){
+			var target = event.target
+			flag=parseFloat(target.getAttribute('data-flag') || 0)
+			flag+=1
+			target.setAttribute('data-flag', flag);
+			target.className+=' rotating'
+			target.style.webkitTransform+="rotateZ(30deg)"
+			setTimeout(function(){ target.classList.remove("rotating"); }, 900);
+			if (hasDoubleTapped==false)
+			{
+				hasDoubleTapped=true
+				instr.innerText="Great! Now try long pressing on the object"
+			}
+
+		})
+
+		.on('hold', function(event){
+			var target = event.target
+			flag=parseFloat(target.getAttribute('data-flag') || 0)
+			angle=flag*30
+			target.className+=' rotating'
+			target.style.webkitTransform+="rotateZ(-"+angle+"deg)"
+			setTimeout(function(){ target.classList.remove("rotating"); }, 900);
+			target.setAttribute('data-flag', 0);
+			if (hasHeld==false)
+			{
+				hasHeld=true
+				instr.innerText="Awesome! You are now ready."
+			}
+		})
+
+	.draggable({
+	inertia: true,
+	autoScroll: true,
+	onmove: dragMoveListener
+	});
+
+	function dragMoveListener (event) {
+	var target = event.target,
+	x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+	y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+	target.style.webkitTransform = target.style.transform ='translate(' + x + 'px, ' + y + 'px)';
+	target.setAttribute('data-x', x);
+	target.setAttribute('data-y', y);
+	document.getElementsByClassName("draggable")[0].onmouseup = function()
+	{
+		if (hasDragged==false)
+		{
+			hasDragged=true
+			instr.innerText="Great! Now try double tapping on the object"
+		}
+	}
+	}
+
+	window.dragMoveListener = dragMoveListener;
+	</script>
+</div>
+</body>
+</html>
