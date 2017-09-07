@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Week2 Practice</title>
+	<style>
+		.rotating{
+			transition: transform 0.8s;
+		}
+		body {
+			color: #5f6062;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 1em;
+		}
+
+		.menu {
+			-webkit-box-shadow: 0px 0px 3px #26292e;
+			box-shadow: 0px 0px 3px #26292e;
+			margin: 10px auto;
+		}
+
+		.menu .menu-header {
+			background: #65707f; /* Old browsers */
+			background: -moz-linear-gradient(top,  #65707f 0%, #4a5564 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#65707f), color-stop(100%,#4a5564)); 
+			background: -webkit-linear-gradient(top,  #65707f 0%,#4a5564 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(top,  #65707f 0%,#4a5564 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(top,  #65707f 0%,#4a5564 100%); /* IE10+ */
+			background: linear-gradient(to bottom,  #65707f 0%,#4a5564 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#65707f', endColorstr='#4a5564',GradientType=0 ); /* IE6-9 */
+			background-color: #586272;
+			-webkit-border-radius: 5px 5px 0px 0px;
+			-moz-border-radius: 5px 5px 0px 0px;
+			border-radius: 5px 5px 0px 0px;
+			text-align: center;	
+		}
+
+		.menu .menu-header {
+			color: #fff;
+			font-size: 0.8em;
+			text-transform: uppercase;
+		}
+
+		.menu-header {
+			padding: 1px;
+		}
+
+		.menu-content > ul {
+			text-align: center;
+			margin: 0;
+			padding: 0;
+		}
+
+		.menu .menu-content {
+			background-color: #fff;
+		}
+
+		.menu .menu-content ul {
+			list-style: none;	
+		}
+
+		.menu .menu-content ul li {
+			border-bottom: 1px solid #efeff0;
+			font-size: 0.7em;
+			padding: 10px 16px;
+		}
+
+		h3 {
+			margin-top: 6px;
+			margin-bottom: 6px;
+		}	
+
+	}
+}
+	</style>
+</head>
+<body>
+<script
+	src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://code.interactjs.io/v1.2.9/interact.min.js"></script>
+
+<div class="menu" style="z-index: 100; display: none; position: absolute;">
+	<div class="menu-header">
+		<h3>Beaker</h3>
+	</div>
+	<div class="menu-content">
+		<ul>
+			<li><strong>Volume: </strong>500 mL</li>
+			<li><strong>Volume of Liquid: </strong><span id="binfo">0</span> mL</li>
+			<li><strong>Solution: </strong>(null)</li>
+			<li><strong>Name: </strong>Beaker 1</li>
+			<li style="color: #F44336"><strong><div onclick="remove()">REMOVE</div></strong></li>
+		</ul>
+	</div>
+</div>
+
+<div class="menu" style="z-index: 100; display: none; position: absolute;">
+	<div class="menu-header">
+		<h3>Burrete</h3>
+	</div>
+	<div class="menu-content pipinfo">
+		<ul>
+			<li><strong>Volume : </strong>20 mL</li>
+			<li><strong>Volume of Liquid: </strong><span id="pipinfoFill">0<span> mL  </li>
+			<li><strong>Solution: </strong>(null)</li>
+			<li><strong>Name: </strong>Pipette 1</li>
+			<li style="color: #F44336"><strong><div onclick="remove()">REMOVE</div></strong></li>
+		</ul>
+	</div>
+</div>
+<div id="apparatus">
+<br/>
+<div class="draggable drag-drop pipette" style="width: 200px">
+	<img src="burrete.png" id="arrow" height="300px">
+	<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">
+		<div class="menu-header">
+			<h3>Burrete</h3>
+		</div>
+		<div class="menu-content">
+			<ul>
+				<li onclick="withdraw()">Withdraw</li>
+				<li onclick="pour()">Pour</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div id="rotate">
+<img src="beaker1.png" height="300px" class="draggable drag-drop beaker1 arrow">
+</div>
+</div>
+<script type="text/javascript">
+	hasDragged=false
+	hasDoubleTapped=false
+	hasHeld=false
+	interact('.arrow')
+		.on('doubletap', function(event){
+			var target = event.target
+			flag=parseFloat(target.getAttribute('data-flag') || 0)
+			flag+=1
+			target.setAttribute('data-flag', flag);
+			target.className+=' rotating'
+			target.style.webkitTransform+="rotateZ(30deg)"
+			setTimeout(function(){ target.classList.remove("rotating"); }, 900);
+			if (hasDoubleTapped==false)
+			{
+				hasDoubleTapped=true
+				instr.innerText="Great! Now try long pressing on the object"
+			}
+
+		})
+		.on('hold', function(event){
+			var target = event.target
+			flag=parseFloat(target.getAttribute('data-flag') || 0)
+			angle=flag*30
+			target.className+=' rotating'
+			target.style.webkitTransform+="rotateZ(-"+angle+"deg)"
+			setTimeout(function(){ target.classList.remove("rotating"); }, 900);
+			target.setAttribute('data-flag', 0);
+			if (hasHeld==false)
+			{
+				hasHeld=true
+				instr.innerText="Awesome! You are now ready."
+			}
+		})
+
+
+	interact('.draggable')
+	.draggable({
+		inertia: true,
+		autoScroll: true,
+		onmove: dragMoveListener
+	});
+
+	function dragMoveListener (event) {
+		var target = event.target,
+		x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+		y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+	target.style.webkitTransform =
+	target.style.transform =
+		'translate(' + x + 'px, ' + y + 'px)';
+
+	target.setAttribute('data-x', x);
+	target.setAttribute('data-y', y);
+	}
+
+	window.dragMoveListener = dragMoveListener;
+
+
+	interact('.beaker1').dropzone({
+		accept: '.pipette',
+		overlap: 0.2,
+		ondragenter: function () {
+			beaker=document.getElementsByClassName("beaker1")[0];
+			pip=document.getElementsByClassName("pipette")[0];
+			position=beaker.getBoundingClientRect();
+			pip.setAttribute('data-x', position.left+90)
+			pip.setAttribute('data-y', position.top-150)
+			menu=document.getElementsByClassName("menu")[2];
+			menu.style.display="block";
+			document.addEventListener('mousedown', function(e){
+				menu=document.getElementsByClassName("menu")[2];
+				//menu.style.display="none";
+			});
+		 },
+		ondragleave: function () {
+			menu=document.getElementsByClassName("menu")[2];
+			menu.style.display="none";
+		}
+	});
+</script>
+<script type="text/javascript">
+	b=document.getElementsByClassName("beaker1");
+	b[0].addEventListener('contextmenu', function(e){
+		menu=document.getElementsByClassName("menu")[0];
+		menu.style.left=(e.pageX-10)+"px";
+		menu.style.top=(e.pageY-10)+"px";
+		menu.style.display="block";
+		e.preventDefault();
+	})
+	document.addEventListener('click', function(e){
+		menu=document.getElementsByClassName("menu")[0];
+		menu.style.display="none";
+		menu.style.left="";
+		menu.style.top="";
+	});
+
+	p=document.getElementsByClassName("pipette");
+	p[0].addEventListener('contextmenu', function(e){
+		menu=document.getElementsByClassName("menu")[1];
+		menu.style.left=(e.pageX-10)+"px";
+		menu.style.top=(e.pageY-10)+"px";
+		menu.style.display="block";
+		e.preventDefault();
+	})
+	document.addEventListener('click', function(e){
+		menu=document.getElementsByClassName("menu")[1];
+		menu.style.display="none";
+		menu.style.left="";
+		menu.style.top="";
+	});
+	remove=function(){
+		console.log("removed");
+	}
+	withdraw=function(){
+		console.log('in withdraw');
+		var pipFill=document.getElementById('pipinfoFill');
+		var bFill=document.getElementById('binfo');
+		if(parseInt(pipFill.innerHTML)>=50)window.alert('Burrete already full!!');
+		else if(parseInt(bFill.innerHTML)<=0)window.alert('Beaker empty!!');
+		else{
+			var x=pipFill.innerHTML;
+			var y=bFill.innerHTML;
+			pipFill.innerHTML=String(parseInt(x)+10);
+			bFill.innerHTML=String(parseInt(y)+10)
+		}
+		menu=document.getElementsByClassName("menu")[2];
+		menu.style.display="none";
+	}
+	pour=function(){
+		console.log('in pour');
+		var pipFill=document.getElementById('pipinfoFill');
+		if(parseInt(pipFill.innerHTML)==0)window.alert('Burrete already empty!!');
+		else if(parseInt(bFill.innerHTML)>=500)window.alert('Beaker full!!');
+		else{
+			var x=pipFill.innerHTML;
+			var y=bFill.innerHTML;
+			pipFill.innerHTML=String(parseInt(x)-10);
+			bFill.innerHTML=String(parseInt(y)-10)
+		}
+		menu=document.getElementsByClassName("menu")[2];
+		menu.style.display="none";
+
+	}
+</script>
+</body>
+</html>
