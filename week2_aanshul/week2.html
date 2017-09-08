@@ -224,7 +224,7 @@
 
 
 	interact('.beaker1').dropzone({
-		accept: '.pipette',
+		accept: '.draggable',
 		overlap: 0.2,
 		ondragenter: function () {
 			beaker=document.getElementsByClassName("beaker1")[0];
@@ -249,9 +249,10 @@
 	});
 
 	interact('.flask1').dropzone({
-		accept: '.pipette',
+		accept: '.draggable',
 		overlap: 0.2,
 		ondragenter: function () {
+			console.log("flask-pipette");
 			flask=document.getElementsByClassName("flask1")[0];
 			pip=document.getElementsByClassName("pipette")[0];
 			position=flask.getBoundingClientRect();
@@ -274,14 +275,14 @@
 	});
 
 	interact('.beaker1').dropzone({
-		accept: '.dropper',
+		accept: '.draggable',
 		overlap: 0.2,
 		ondragenter: function () {
 			beaker=document.getElementsByClassName("beaker1")[0];
-			pip=document.getElementsByClassName("dropper")[0];
+			dro=document.getElementsByClassName("dropper")[0];
 			position=beaker.getBoundingClientRect();
-			pip.setAttribute('data-x', position.left-150)
-			pip.setAttribute('data-y', position.top-150)
+			dro.setAttribute('data-x', position.left-150)
+			dro.setAttribute('data-y', position.top-150)
 			menu=document.getElementsByClassName("menu")[6];
 			menu.style.display="block";
 			document.addEventListener('mousedown', function(e){
@@ -299,14 +300,14 @@
 	});
 
 	interact('.flask1').dropzone({
-		accept: '.dropper',
+		accept: '.draggable',
 		overlap: 0.2,
 		ondragenter: function () {
-			beaker=document.getElementsByClassName("flask1")[0];
-			pip=document.getElementsByClassName("dropper")[0];
-			position=beaker.getBoundingClientRect();
-			pip.setAttribute('data-x', position.left-150)
-			pip.setAttribute('data-y', position.top-150)
+			flask=document.getElementsByClassName("flask1")[0];
+			dro=document.getElementsByClassName("dropper")[0];
+			position=flask.getBoundingClientRect();
+			dro.setAttribute('data-x', position.left-150)
+			dro.setAttribute('data-y', position.top-150)
 			menu=document.getElementsByClassName("menu")[6];
 			menu.style.display="block";
 			document.addEventListener('mousedown', function(e){
@@ -323,15 +324,15 @@
 		// }
 	});
 
-	interact('.beaker1').dropzone({
+	/*interact('.beaker1').dropzone({
 		accept: '.burette',
 		overlap: 0.2,
 		ondragenter: function () {
 			beaker=document.getElementsByClassName("beaker1")[0];
-			pip=document.getElementsByClassName("burette")[0];
+			bur=document.getElementsByClassName("burette")[0];
 			position=beaker.getBoundingClientRect();
-			pip.setAttribute('data-x', position.left-350);
-			pip.setAttribute('data-y', position.top-150);
+			bur.setAttribute('data-x', position.left-350);
+			bur.setAttribute('data-y', position.top-150);
 			menu=document.getElementsByClassName("menu")[7];
 			menu.style.display="block";
 			document.addEventListener('mousedown', function(e){
@@ -352,11 +353,11 @@
 		accept: '.burette',
 		overlap: 0.2,
 		ondragenter: function () {
-			beaker=document.getElementsByClassName("flask1")[0];
-			pip=document.getElementsByClassName("burette")[0];
-			position=beaker.getBoundingClientRect();
-			pip.setAttribute('data-x', position.left-350)
-			pip.setAttribute('data-y', position.top-150)
+			flask=document.getElementsByClassName("flask1")[0];
+			bur=document.getElementsByClassName("burette")[0];
+			position=flask.getBoundingClientRect();
+			bur.setAttribute('data-x', position.left-350)
+			bur.setAttribute('data-y', position.top-150)
 			menu=document.getElementsByClassName("menu")[7];
 			menu.style.display="block";
 			document.addEventListener('mousedown', function(e){
@@ -372,7 +373,7 @@
 		// 	console.log("Pipette dropped");
 		// }
 	});
-
+*/
 
 </script>
 <script type="text/javascript">
