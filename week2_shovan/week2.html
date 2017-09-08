@@ -3,20 +3,17 @@
 <head>
 	<title>Week2 Practice</title>
 	<style>
-
 		body {
 			color: #5f6062;
 			font-family: Arial, Helvetica, sans-serif;
 			font-size: 1em;
 		}
-
 		.menu {
 			-webkit-box-shadow: 0px 0px 3px #26292e;
 			box-shadow: 0px 0px 3px #26292e;
 			margin: 10px auto;
 			/*width: 150px;*/
 		}
-
 		.menu .menu-header {
 			background: #65707f; /* Old browsers */
 			background: -moz-linear-gradient(top,  #65707f 0%, #4a5564 100%); /* FF3.6+ */
@@ -32,42 +29,34 @@
 			border-radius: 5px 5px 0px 0px;
 			text-align: center;	
 		}
-
 		.menu .menu-header {
 			color: #fff;
 			font-size: 0.8em;
 			text-transform: uppercase;
 		}
-
 		.menu-header {
 			padding: 1px;
 		}
-
 		.menu-content > ul {
 			text-align: center;
 			margin: 0;
 			padding: 0;
 		}
-
 		.menu .menu-content {
 			background-color: #fff;
 		}
-
 		.menu .menu-content ul {
 			list-style: none;	
 		}
-
 		.menu .menu-content ul li {
 			border-bottom: 1px solid #efeff0;
 			font-size: 0.7em;
 			padding: 10px 16px;
 		}
-
 		h3 {
 			margin-top: 6px;
 			margin-bottom: 6px;
 		}	
-
 	}
 }
 	</style>
@@ -133,23 +122,17 @@
 		autoScroll: true,
 		onmove: dragMoveListener
 	});
-
 	function dragMoveListener (event) {
 		var target = event.target,
 		x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
 		y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
 	target.style.webkitTransform =
 	target.style.transform =
 		'translate(' + x + 'px, ' + y + 'px)';
-
 	target.setAttribute('data-x', x);
 	target.setAttribute('data-y', y);
 	}
-
 	window.dragMoveListener = dragMoveListener;
-
-
 	interact('.beaker1').dropzone({
 		accept: '.pipette',
 		overlap: 0.2,
@@ -190,7 +173,6 @@
 		menu.style.left="";
 		menu.style.top="";
 	});
-
 	p=document.getElementsByClassName("pipette");
 	p[0].addEventListener('contextmenu', function(e){
 		menu=document.getElementsByClassName("menu")[1];
@@ -205,7 +187,6 @@
 		menu.style.left="";
 		menu.style.top="";
 	});
-
 	remove=function(){
 		console.log("removed");
 	}
