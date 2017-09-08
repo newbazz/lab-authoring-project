@@ -118,42 +118,50 @@
 			<li><strong>Volume : </strong>20 mL</li>
 			<li><strong>Volume of Liquid: </strong><span id="pipinfoFill">0<span> mL  </li>
 			<li><strong>Solution: </strong>(null)</li>
-			<li><strong>Name: </strong>Pipette 1</li>
+			<li><strong>Name: </strong>Burette</li>
+			<li style="color: #F44336"><strong><div onclick="Remove()" id="remove">REMOVE</div></strong></li>
+		</ul>
+	</div>
+</div>
+<div class="menu" style="z-index: 100; display: none; position: absolute;">
+	<div class="menu-header">
+		<h3>Burrgfdrete</h3>
+	</div>
+	<div class="menu-content pipinfo">
+		<ul>
+			<li><strong>Volume : </strong>20 mL</li>
+			<li><strong>Volume of Liquid: </strong><span id="pipinfoFill">0<span> mL  </li>
+			<li><strong>Solution: </strong>(null)</li>
+			<li><strong>Name: </strong>Burette</li>
 			<li style="color: #F44336"><strong><div onclick="Remove()" id="remove">REMOVE</div></strong></li>
 		</ul>
 	</div>
 </div>
 <div id="apparatus">
 <br/>
-<div class="draggable drag-drop burrette" style="width: 200px">
-	<img src="burrete.png" id="b" height="300px">
+<div class="draggable drag-drop burrette" style="width: 200px" id="bur">
+	<img src="burrete.png"  height="300px">
 	<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">
-		<div class="menu-header">
-			<h3>Burrete</h3>
-		</div>
 		<div class="menu-content">
 			<ul>
-				<li onclick="withdraw()">Withdraw</li>
-				<li onclick="pour()">Pour</li>
+				<li onclick="withdraw('b')">Withdraw</li>
+				<li onclick="pour('b')">Pour</li>
 			</ul>
 		</div>
 	</div>
 </div>
 <div id="rotate">
-<img src="beaker1.png" height="300px" class="draggable drag-drop beaker1 arrow">
+<img src="beaker1.png" height="300px" class="draggable drag-drop beaker1 arrow" id='kk'>
 <img src="1000mlflask.png" height="300px" class="draggable drag-drop flask arrow">
 </div>
 </div>
-<div class="draggable drag-drop pipette" style="width: 200px">
-	<img src="pipette.jpg" id="arrow" height="300px" id="this" >
-	<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">
-		<div class="menu-header">
-			<h3>Pipette</h3>
-		</div>
+<div class="draggable drag-drop burrette" style="width: 200px" id="pipp">
+	<img src="pipette.svg" id="arrow" height="300px" >
+	<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">	
 		<div class="menu-content">
 			<ul>
-				<li onclick="withdraw()">Withdraw</li>
-				<li onclick="pour()">Pour</li>
+				<li onclick="withdraw('p')">Withdraw</li>
+				<li onclick="pour('p')">Pour</li>
 			</ul>
 		</div>
 	</div>
@@ -163,6 +171,8 @@
 	hasDragged=false;
 	hasDoubleTapped=false;
 	hasHeld=false;
+	pipIn="";
+	burIn="";
 	interact('.arrow')
 		.on('doubletap', function(event){
 			var target = event.target;
@@ -201,6 +211,18 @@
 		autoScroll: true,
 		onmove: dragMoveListener
 	});
+	interact('.burrette')
+	.draggable({
+		inertia: true,
+		autoScroll: true,
+		onmove: dragMoveListener
+	});
+	interact('.pipp')
+	.draggable({
+		inertia: true,
+		autoScroll: true,
+		onmove: dragMoveListener
+	});
 
 	function dragMoveListener (event) {
 		var target = event.target,
@@ -219,90 +241,61 @@
 
 
 	interact('.beaker1').dropzone({
-		accept: '.pipette',
-		overlap: 0.4,
-		ondragenter: function () {
-			isDroppedAt="beaker";
-			console.log('hi');
-			beaker=document.getElementsByClassName("beaker1")[0];
-			pip=document.getElementsByClassName("pipette")[0];
-			position=beaker.getBoundingClientRect();
-			pip.setAttribute('data-x', position.left+90)
-			pip.setAttribute('data-y', position.top-150)
-			menu=document.getElementsByClassName("menu")[4];
-			menu.style.display="block";
-			document.addEventListener('mousedown', function(e){
-				menu=document.getElementsByClassName("menu")[4];
-				//menu.style.display="none";
-			});
-		 },
-		ondragleave: function () {
-			menu=document.getElementsByClassName("menu")[4];
-			//menu.style.display="none";
-		}
-	});
-	interact('.flask').dropzone({
-		accept: '.pipette',
-		overlap: 0.2,
-		ondragenter: function () {
-			isDroppedAt="flask";
-			console.log('hi');
-			beaker=document.getElementsByClassName("flask")[0];
-			pip=document.getElementsByClassName("pipette")[0];
-			position=beaker.getBoundingClientRect();
-			pip.setAttribute('data-x', position.left+90)
-			pip.setAttribute('data-y', position.top-150)
-			menu=document.getElementsByClassName("menu")[4];
-			menu.style.display="block";
-			document.addEventListener('mousedown', function(e){
-				menu=document.getElementsByClassName("menu")[4];
-				//menu.style.display="none";
-			});
-		 },
-		ondragleave: function () {
-			menu=document.getElementsByClassName("menu")[4];
-			//menu.style.display="none";
-		}
-	});
-	interact('.beaker1').dropzone({
 		accept: '.burrette',
 		overlap: 0.2,
-		ondragenter: function () {
+		ondragenter: function (event) {
+			var x=event.relatedTarget.id;
 			isDroppedAt="beaker";
-			beaker=document.getElementsByClassName("beaker1")[0];
-			pip=document.getElementsByClassName("burrette")[0];
-			position=beaker.getBoundingClientRect();
-			pip.setAttribute('data-x', position.left+90)
-			pip.setAttribute('data-y', position.top-150)
-			menu=document.getElementsByClassName("menu")[3];
-			console.log(menu)
-			menu.style.display="block";
+			if(x=="bur"){
+				burIn="beaker";
+				menu=document.getElementsByClassName("menu")[4];
+				menu.style.display="block";
+			}
+			if(x=="pipp"){
+				pipIn="beaker";
+				beaker=document.getElementsByClassName("beaker1")[0];
+				pip=document.getElementsByClassName("burrette")[1];
+				menu=document.getElementsByClassName("menu")[5];
+				menu.style.display="block";
+			}
 			document.addEventListener('mousedown', function(e){
-				menu=document.getElementsByClassName("menu")[3];
+				menu=document.getElementsByClassName("menu")[5];
 				//menu.style.display="none";
 			});
 		 },
 		ondragleave: function () {
-			menu=document.getElementsByClassName("menu")[3];
+			menu=document.getElementsByClassName("menu")[5];
 			//menu.style.display="none";
 		}
 	});
 	interact('.flask').dropzone({
 		accept: '.burrette',
 		overlap: 0.2,
-		ondragenter: function () {
+		ondragenter: function (event) {
 			isDroppedAt="flask";
-			beaker=document.getElementsByClassName("flask")[0];
-			pip=document.getElementsByClassName("pipette")[0];
-			position=beaker.getBoundingClientRect();
-			pip.setAttribute('data-x', position.left+90)
-			pip.setAttribute('data-y', position.top-150)
-			menu=document.getElementsByClassName("menu")[3];
-			menu.style.display="block";
-			document.addEventListener('mousedown', function(e){
-				menu=document.getElementsByClassName("menu")[3];
-				//menu.style.display="none";
-			});
+			var x=event.relatedTarget.id;
+			console.log(x)
+			if(x=="bur"){
+				burIn="flask";
+				menu=document.getElementsByClassName("menu")[4];
+				console.log(menu)
+				menu.style.display="block";
+				document.addEventListener('mousedown', function(e){
+					menu=document.getElementsByClassName("menu")[4];
+					//menu.style.display="none";
+
+				});
+			}
+			else if(x=="pipp"){
+				pipIn="flask";
+				menu=document.getElementsByClassName("menu")[5];
+				menu.style.display="block";
+				document.addEventListener('mousedown', function(e){
+					menu=document.getElementsByClassName("menu")[5];
+					//menu.style.display="none";
+
+				});
+			}
 		 },
 		ondragleave: function () {
 			menu=document.getElementsByClassName("menu")[3];
@@ -339,7 +332,7 @@
 		menu.style.left="";
 		menu.style.top="";
 	});
-	p=document.getElementsByClassName("pipette");
+	p=document.getElementsByClassName("burrette");
 	p[0].addEventListener('contextmenu', function(e){
 		menu=document.getElementsByClassName("menu")[2];
 		menu.style.left=(e.pageX-10)+"px";
@@ -349,6 +342,20 @@
 	})
 	document.addEventListener('click', function(e){
 		menu=document.getElementsByClassName("menu")[2];
+		menu.style.display="none";
+		menu.style.left="";
+		menu.style.top="";
+	});
+	bu=document.getElementsByClassName("burrette");
+	bu[1].addEventListener('contextmenu', function(e){
+		menu=document.getElementsByClassName("menu")[3];
+		menu.style.left=(e.pageX-10)+"px";
+		menu.style.top=(e.pageY-10)+"px";
+		menu.style.display="block";
+		e.preventDefault();
+	})
+	document.addEventListener('click', function(e){
+		menu=document.getElementsByClassName("menu")[3];
 		menu.style.display="none";
 		menu.style.left="";
 		menu.style.top="";
@@ -365,7 +372,7 @@
 			var bFill=document.getElementById('finfo');
 		}
 		var pipFill=document.getElementById('pipinfoFill');
-		if(parseInt(pipFill.innerHTML)>=50)window.alert('Burrete already full!!');
+		if(parseInt(pipFill.innerHTML)>=50)window.alert('Already full!!');
 		else if(parseInt(bFill.innerHTML)<=0)window.alert(isDroppedAt +' empty!!');
 		else{
 			var x=pipFill.innerHTML;
@@ -376,26 +383,49 @@
 		menu=document.getElementsByClassName("menu")[3];
 		menu.style.display="none";
 	}
-	pour=function(){
-		if(isDroppedAt=="beaker"){
-			bmax=500;
-			bFill=document.getElementById('binfo');
+	pour=function(inside){
+		if(inside=="p"){
+			if(pipIn=="beaker"){
+				bmax=500;
+				bFill=document.getElementById('binfo');
+			}
+			if(pipIn=="flask"){
+				bmax=1000;
+				bFill=document.getElementById('finfo');
+			}
+			var pipFill=document.getElementById('pipinfoFill');
+			if(parseInt(pipFill.innerHTML)==0)window.alert('Already empty!!');
+			else if(parseInt(bFill.innerHTML)>=bmax)window.alert(isDroppedAt+' full!!');
+			else{
+				var x=pipFill.innerHTML;
+				var y=bFill.innerHTML;
+				pipFill.innerHTML=String(parseInt(x)-10);
+				bFill.innerHTML=String(parseInt(y)-10)
+			}
+			menu=document.getElementsByClassName("menu")[3];
+			menu.style.display="none";
 		}
-		if(isDroppedAt=="flask"){
-			bmax=1000;
-			bFill=document.getElementById('finfo');
+		if(inside=="b"){
+			if(burIn=="beaker"){
+				bmax=500;
+				bFill=document.getElementById('binfo');
+			}
+			if(burIn=="flask"){
+				bmax=1000;
+				bFill=document.getElementById('finfo');
+			}
+			var pipFill=document.getElementById('burinfoFill');
+			if(parseInt(pipFill.innerHTML)==0)window.alert('Already empty!!');
+			else if(parseInt(bFill.innerHTML)>=bmax)window.alert(isDroppedAt+' full!!');
+			else{
+				var x=pipFill.innerHTML;
+				var y=bFill.innerHTML;
+				pipFill.innerHTML=String(parseInt(x)-10);
+				bFill.innerHTML=String(parseInt(y)-10)
+			}
+			menu=document.getElementsByClassName("menu")[3];
+			menu.style.display="none";
 		}
-		var pipFill=document.getElementById('pipinfoFill');
-		if(parseInt(pipFill.innerHTML)==0)window.alert('Burrete already empty!!');
-		else if(parseInt(bFill.innerHTML)>=bmax)window.alert(isDroppedAt+' full!!');
-		else{
-			var x=pipFill.innerHTML;
-			var y=bFill.innerHTML;
-			pipFill.innerHTML=String(parseInt(x)-10);
-			bFill.innerHTML=String(parseInt(y)-10)
-		}
-		menu=document.getElementsByClassName("menu")[3];
-		menu.style.display="none";
 
 	}
 </script>
