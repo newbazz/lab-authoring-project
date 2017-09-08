@@ -90,7 +90,21 @@
 			<li><strong>Volume of Liquid: </strong><span id="binfo">0</span> mL</li>
 			<li><strong>Solution: </strong>(null)</li>
 			<li><strong>Name: </strong>Beaker 1</li>
-			<li style="color: #F44336"><strong><div onclick="remove()">REMOVE</div></strong></li>
+			<li style="color: #F44336"><strong><div onclick="Remove() id="remove" >REMOVE</div></strong></li>
+		</ul>
+	</div>
+</div>
+<div class="menu" style="z-index: 100; display: none; position: absolute;">
+	<div class="menu-header">
+		<h3>Flask</h3>
+	</div>
+	<div class="menu-content">
+		<ul>
+			<li><strong>Volume: </strong>1000 mL</li>
+			<li><strong>Volume of Liquid: </strong><span id="finfo">0</span> mL</li>
+			<li><strong>Solution: </strong>(null)</li>
+			<li><strong>Name: </strong>Flask</li>
+			<li style="color: #F44336"><strong><div onclick="Remove() id="remove" >REMOVE</div></strong></li>
 		</ul>
 	</div>
 </div>
@@ -105,14 +119,14 @@
 			<li><strong>Volume of Liquid: </strong><span id="pipinfoFill">0<span> mL  </li>
 			<li><strong>Solution: </strong>(null)</li>
 			<li><strong>Name: </strong>Pipette 1</li>
-			<li style="color: #F44336"><strong><div onclick="remove()">REMOVE</div></strong></li>
+			<li style="color: #F44336"><strong><div onclick="Remove()" id="remove">REMOVE</div></strong></li>
 		</ul>
 	</div>
 </div>
 <div id="apparatus">
 <br/>
-<div class="draggable drag-drop pipette" style="width: 200px">
-	<img src="burrete.png" id="arrow" height="300px">
+<div class="draggable drag-drop burrette" style="width: 200px">
+	<img src="burrete.png" id="b" height="300px">
 	<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">
 		<div class="menu-header">
 			<h3>Burrete</h3>
@@ -127,40 +141,56 @@
 </div>
 <div id="rotate">
 <img src="beaker1.png" height="300px" class="draggable drag-drop beaker1 arrow">
+<img src="1000mlflask.png" height="300px" class="draggable drag-drop flask arrow">
 </div>
+</div>
+<div class="draggable drag-drop pipette" style="width: 200px">
+	<img src="pipette.jpg" id="arrow" height="300px" id="this" >
+	<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">
+		<div class="menu-header">
+			<h3>Pipette</h3>
+		</div>
+		<div class="menu-content">
+			<ul>
+				<li onclick="withdraw()">Withdraw</li>
+				<li onclick="pour()">Pour</li>
+			</ul>
+		</div>
+	</div>
 </div>
 <script type="text/javascript">
-	hasDragged=false
-	hasDoubleTapped=false
-	hasHeld=false
+	isDroppedAt=""
+	hasDragged=false;
+	hasDoubleTapped=false;
+	hasHeld=false;
 	interact('.arrow')
 		.on('doubletap', function(event){
-			var target = event.target
+			var target = event.target;
 			flag=parseFloat(target.getAttribute('data-flag') || 0)
-			flag+=1
+			flag+=1;
 			target.setAttribute('data-flag', flag);
-			target.className+=' rotating'
-			target.style.webkitTransform+="rotateZ(30deg)"
+			target.className+=' rotating';
+			target.style.webkitTransform+="rotateZ(30deg)";
 			setTimeout(function(){ target.classList.remove("rotating"); }, 900);
 			if (hasDoubleTapped==false)
 			{
-				hasDoubleTapped=true
-				instr.innerText="Great! Now try long pressing on the object"
+				hasDoubleTapped=true;
+				// instr.innerText="Great! Now try long pressing on the object"
 			}
 
 		})
 		.on('hold', function(event){
-			var target = event.target
-			flag=parseFloat(target.getAttribute('data-flag') || 0)
-			angle=flag*30
+			var target = event.target;
+			flag=parseFloat(target.getAttribute('data-flag') || 0);
+			angle=flag*30;
 			target.className+=' rotating'
-			target.style.webkitTransform+="rotateZ(-"+angle+"deg)"
+			target.style.webkitTransform+="rotateZ(-"+angle+"deg)";
 			setTimeout(function(){ target.classList.remove("rotating"); }, 900);
 			target.setAttribute('data-flag', 0);
 			if (hasHeld==false)
 			{
-				hasHeld=true
-				instr.innerText="Awesome! You are now ready."
+				hasHeld=true;
+				// instr.innerText`	="Awesome! You are now ready."
 			}
 		})
 
@@ -190,23 +220,93 @@
 
 	interact('.beaker1').dropzone({
 		accept: '.pipette',
-		overlap: 0.2,
+		overlap: 0.4,
 		ondragenter: function () {
+			isDroppedAt="beaker";
+			console.log('hi');
 			beaker=document.getElementsByClassName("beaker1")[0];
 			pip=document.getElementsByClassName("pipette")[0];
 			position=beaker.getBoundingClientRect();
 			pip.setAttribute('data-x', position.left+90)
 			pip.setAttribute('data-y', position.top-150)
-			menu=document.getElementsByClassName("menu")[2];
+			menu=document.getElementsByClassName("menu")[4];
 			menu.style.display="block";
 			document.addEventListener('mousedown', function(e){
-				menu=document.getElementsByClassName("menu")[2];
+				menu=document.getElementsByClassName("menu")[4];
 				//menu.style.display="none";
 			});
 		 },
 		ondragleave: function () {
-			menu=document.getElementsByClassName("menu")[2];
-			menu.style.display="none";
+			menu=document.getElementsByClassName("menu")[4];
+			//menu.style.display="none";
+		}
+	});
+	interact('.flask').dropzone({
+		accept: '.pipette',
+		overlap: 0.2,
+		ondragenter: function () {
+			isDroppedAt="flask";
+			console.log('hi');
+			beaker=document.getElementsByClassName("flask")[0];
+			pip=document.getElementsByClassName("pipette")[0];
+			position=beaker.getBoundingClientRect();
+			pip.setAttribute('data-x', position.left+90)
+			pip.setAttribute('data-y', position.top-150)
+			menu=document.getElementsByClassName("menu")[4];
+			menu.style.display="block";
+			document.addEventListener('mousedown', function(e){
+				menu=document.getElementsByClassName("menu")[4];
+				//menu.style.display="none";
+			});
+		 },
+		ondragleave: function () {
+			menu=document.getElementsByClassName("menu")[4];
+			//menu.style.display="none";
+		}
+	});
+	interact('.beaker1').dropzone({
+		accept: '.burrette',
+		overlap: 0.2,
+		ondragenter: function () {
+			isDroppedAt="beaker";
+			beaker=document.getElementsByClassName("beaker1")[0];
+			pip=document.getElementsByClassName("burrette")[0];
+			position=beaker.getBoundingClientRect();
+			pip.setAttribute('data-x', position.left+90)
+			pip.setAttribute('data-y', position.top-150)
+			menu=document.getElementsByClassName("menu")[3];
+			console.log(menu)
+			menu.style.display="block";
+			document.addEventListener('mousedown', function(e){
+				menu=document.getElementsByClassName("menu")[3];
+				//menu.style.display="none";
+			});
+		 },
+		ondragleave: function () {
+			menu=document.getElementsByClassName("menu")[3];
+			//menu.style.display="none";
+		}
+	});
+	interact('.flask').dropzone({
+		accept: '.burrette',
+		overlap: 0.2,
+		ondragenter: function () {
+			isDroppedAt="flask";
+			beaker=document.getElementsByClassName("flask")[0];
+			pip=document.getElementsByClassName("pipette")[0];
+			position=beaker.getBoundingClientRect();
+			pip.setAttribute('data-x', position.left+90)
+			pip.setAttribute('data-y', position.top-150)
+			menu=document.getElementsByClassName("menu")[3];
+			menu.style.display="block";
+			document.addEventListener('mousedown', function(e){
+				menu=document.getElementsByClassName("menu")[3];
+				//menu.style.display="none";
+			});
+		 },
+		ondragleave: function () {
+			menu=document.getElementsByClassName("menu")[3];
+			//menu.style.display="none";
 		}
 	});
 </script>
@@ -225,9 +325,8 @@
 		menu.style.left="";
 		menu.style.top="";
 	});
-
-	p=document.getElementsByClassName("pipette");
-	p[0].addEventListener('contextmenu', function(e){
+	f=document.getElementsByClassName("flask");
+	f[0].addEventListener('contextmenu', function(e){
 		menu=document.getElementsByClassName("menu")[1];
 		menu.style.left=(e.pageX-10)+"px";
 		menu.style.top=(e.pageY-10)+"px";
@@ -240,36 +339,62 @@
 		menu.style.left="";
 		menu.style.top="";
 	});
-	remove=function(){
-		console.log("removed");
+	p=document.getElementsByClassName("pipette");
+	p[0].addEventListener('contextmenu', function(e){
+		menu=document.getElementsByClassName("menu")[2];
+		menu.style.left=(e.pageX-10)+"px";
+		menu.style.top=(e.pageY-10)+"px";
+		menu.style.display="block";
+		e.preventDefault();
+	})
+	document.addEventListener('click', function(e){
+		menu=document.getElementsByClassName("menu")[2];
+		menu.style.display="none";
+		menu.style.left="";
+		menu.style.top="";
+	});
+	Remove=function(){
+		console.log('ok');
 	}
 	withdraw=function(){
-		console.log('in withdraw');
+		console.log(isDroppedAt);
+		if(isDroppedAt=="beaker"){
+			var bFill=document.getElementById('binfo');
+		}
+		if(isDroppedAt=="flask"){
+			var bFill=document.getElementById('finfo');
+		}
 		var pipFill=document.getElementById('pipinfoFill');
-		var bFill=document.getElementById('binfo');
 		if(parseInt(pipFill.innerHTML)>=50)window.alert('Burrete already full!!');
-		else if(parseInt(bFill.innerHTML)<=0)window.alert('Beaker empty!!');
+		else if(parseInt(bFill.innerHTML)<=0)window.alert(isDroppedAt +' empty!!');
 		else{
 			var x=pipFill.innerHTML;
 			var y=bFill.innerHTML;
 			pipFill.innerHTML=String(parseInt(x)+10);
 			bFill.innerHTML=String(parseInt(y)+10)
 		}
-		menu=document.getElementsByClassName("menu")[2];
+		menu=document.getElementsByClassName("menu")[3];
 		menu.style.display="none";
 	}
 	pour=function(){
-		console.log('in pour');
+		if(isDroppedAt=="beaker"){
+			bmax=500;
+			bFill=document.getElementById('binfo');
+		}
+		if(isDroppedAt=="flask"){
+			bmax=1000;
+			bFill=document.getElementById('finfo');
+		}
 		var pipFill=document.getElementById('pipinfoFill');
 		if(parseInt(pipFill.innerHTML)==0)window.alert('Burrete already empty!!');
-		else if(parseInt(bFill.innerHTML)>=500)window.alert('Beaker full!!');
+		else if(parseInt(bFill.innerHTML)>=bmax)window.alert(isDroppedAt+' full!!');
 		else{
 			var x=pipFill.innerHTML;
 			var y=bFill.innerHTML;
 			pipFill.innerHTML=String(parseInt(x)-10);
 			bFill.innerHTML=String(parseInt(y)-10)
 		}
-		menu=document.getElementsByClassName("menu")[2];
+		menu=document.getElementsByClassName("menu")[3];
 		menu.style.display="none";
 
 	}
