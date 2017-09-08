@@ -80,7 +80,7 @@
 	crossorigin="anonymous"></script>
 <script type="text/javascript" src="http://code.interactjs.io/v1.2.9/interact.min.js"></script>
 
-<div class="menu" style="z-index: 100; display: none; position: absolute;">
+<div class="menu" style="z-index: 100; display: none; position: absolute;">						<!--beaker menu 0-->
 	<div class="menu-header">
 		<h3>Beaker</h3>
 	</div>
@@ -94,7 +94,7 @@
 		</ul>
 	</div>
 </div>
-<div class="menu" style="z-index: 100; display: none; position: absolute;">
+<div class="menu" style="z-index: 100; display: none; position: absolute;">						<!--flask menu 1-->
 	<div class="menu-header">
 		<h3>Flask</h3>
 	</div>
@@ -109,9 +109,9 @@
 	</div>
 </div>
 
-<div class="menu" style="z-index: 100; display: none; position: absolute;">
+<div class="menu" style="z-index: 100; display: none; position: absolute;">						<!--burette menu 2-->
 	<div class="menu-header">
-		<h3>Burrete</h3>
+		<h3>Burette</h3>
 	</div>
 	<div class="menu-content pipinfo">
 		<ul>
@@ -123,9 +123,9 @@
 		</ul>
 	</div>
 </div>
-<div class="menu" style="z-index: 100; display: none; position: absolute;">
+<div class="menu" style="z-index: 100; display: none; position: absolute;">						<!--pipette menu 3-->
 	<div class="menu-header">
-		<h3>Burrgfdrete</h3>
+		<h3>Pipette</h3>
 	</div>
 	<div class="menu-content pipinfo">
 		<ul>
@@ -141,7 +141,7 @@
 <br/>
 <div class="draggable drag-drop burrette" style="width: 200px" id="bur">
 	<img src="burrete.png"  height="300px">
-	<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">
+	<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">		<!--burette wp menu 4-->
 		<div class="menu-content">
 			<ul>
 				<li onclick="withdraw('b')">Withdraw</li>
@@ -154,10 +154,10 @@
 <img src="beaker1.png" height="300px" class="draggable drag-drop beaker1 arrow" id='kk'>
 <img src="1000mlflask.png" height="300px" class="draggable drag-drop flask arrow">
 </div>
-</div>
+
 <div class="draggable drag-drop burrette" style="width: 200px" id="pipp">
 	<img src="pipette.svg" id="arrow" height="300px" >
-	<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">	
+	<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">		<!--pipette wp menu 5-->
 		<div class="menu-content">
 			<ul>
 				<li onclick="withdraw('p')">Withdraw</li>
@@ -165,6 +165,7 @@
 			</ul>
 		</div>
 	</div>
+</div>
 </div>
 <script type="text/javascript">
 	isDroppedAt=""
@@ -260,12 +261,14 @@
 			}
 			document.addEventListener('mousedown', function(e){
 				menu=document.getElementsByClassName("menu")[5];
-				//menu.style.display="none";
+				menu.style.display="none";
 			});
 		 },
 		ondragleave: function () {
 			menu=document.getElementsByClassName("menu")[5];
-			//menu.style.display="none";
+			menu.style.display="none";
+			menu=document.getElementsByClassName("menu")[4];
+			menu.style.display="none";
 		}
 	});
 	interact('.flask').dropzone({
@@ -282,7 +285,7 @@
 				menu.style.display="block";
 				document.addEventListener('mousedown', function(e){
 					menu=document.getElementsByClassName("menu")[4];
-					//menu.style.display="none";
+					menu.style.display="none";
 
 				});
 			}
@@ -292,14 +295,16 @@
 				menu.style.display="block";
 				document.addEventListener('mousedown', function(e){
 					menu=document.getElementsByClassName("menu")[5];
-					//menu.style.display="none";
+					menu.style.display="none";
 
 				});
 			}
 		 },
 		ondragleave: function () {
-			menu=document.getElementsByClassName("menu")[3];
-			//menu.style.display="none";
+			menu=document.getElementsByClassName("menu")[5];
+			menu.style.display="none";
+			menu=document.getElementsByClassName("menu")[4];
+			menu.style.display="none";
 		}
 	});
 </script>
