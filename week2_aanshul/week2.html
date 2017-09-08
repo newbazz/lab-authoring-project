@@ -97,7 +97,7 @@
 	</div>
 </div>
 
-<div class="menu" style="z-index: 100; display: none; position: absolute;">					<!--menu 2: flask-->
+<div class="menu" style="z-index: 100; display: none; position: absolute;">						<!--menu 2: flask-->
 	<div class="menu-header">
 		<h3>Flask</h3>
 	</div>
@@ -159,7 +159,7 @@
 <br/>
 <div class="draggable drag-drop pipette" style="width: 200px;display:inline-block;">
 	<img src="pipette.jpg" height="300px">
-	<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">	<!--menu 6: pipetted-->
+	<div class="menu" style="z-index: 100; display: none; position: absolute; left: 160px; top: 10px">	<!--menu 6: pipetted-->
 		<div class="menu-header">
 			<h3>Pipette</h3>
 		</div>
@@ -266,17 +266,17 @@
 			beaker=document.getElementsByClassName("beaker1")[0];
 			pip=document.getElementsByClassName("pipette")[0];
 			position=beaker.getBoundingClientRect();
-			pip.setAttribute('data-x', position.left+90)
+			pip.setAttribute('data-x', position.left-50)
 			pip.setAttribute('data-y', position.top-150)
-			menu=document.getElementsByClassName("menu")[3];
+			menu=document.getElementsByClassName("menu")[5];
 			menu.style.display="block";
 			document.addEventListener('mousedown', function(e){
-				menu=document.getElementsByClassName("menu")[3];
+				menu=document.getElementsByClassName("menu")[5];
 				menu.style.display="none";
 			});
 		 },
 		ondragleave: function () {
-			menu=document.getElementsByClassName("menu")[3];
+			menu=document.getElementsByClassName("menu")[5];
 			menu.style.display="none";
 		}
 		// ondrop: function () {
@@ -291,23 +291,125 @@
 			flask=document.getElementsByClassName("flask1")[0];
 			pip=document.getElementsByClassName("pipette")[0];
 			position=flask.getBoundingClientRect();
-			pip.setAttribute('data-x', position.left+70)
+			pip.setAttribute('data-x', position.left-40)
 			pip.setAttribute('data-y', position.top-150)
-			menu=document.getElementsByClassName("menu")[3];
+			menu=document.getElementsByClassName("menu")[5];
 			menu.style.display="block";
 			document.addEventListener('mousedown', function(e){
-				menu=document.getElementsByClassName("menu")[3];
+				menu=document.getElementsByClassName("menu")[5];
 				menu.style.display="none";
 			});
 		 },
 		ondragleave: function () {
-			menu=document.getElementsByClassName("menu")[3];
+			menu=document.getElementsByClassName("menu")[5];
 			menu.style.display="none";
 		}
 		// ondrop: function () {
 		// 	console.log("Pipette dropped");
 		// }
 	});
+
+	interact('.beaker1').dropzone({
+		accept: '.dropper',
+		overlap: 0.2,
+		ondragenter: function () {
+			beaker=document.getElementsByClassName("beaker1")[0];
+			pip=document.getElementsByClassName("dropper")[0];
+			position=beaker.getBoundingClientRect();
+			pip.setAttribute('data-x', position.left-150)
+			pip.setAttribute('data-y', position.top-150)
+			menu=document.getElementsByClassName("menu")[6];
+			menu.style.display="block";
+			document.addEventListener('mousedown', function(e){
+				menu=document.getElementsByClassName("menu")[6];
+				menu.style.display="none";
+			});
+		 },
+		ondragleave: function () {
+			menu=document.getElementsByClassName("menu")[6];
+			menu.style.display="none";
+		}
+		// ondrop: function () {
+		// 	console.log("Pipette dropped");
+		// }
+	});
+
+	interact('.flask1').dropzone({
+		accept: '.dropper',
+		overlap: 0.2,
+		ondragenter: function () {
+			beaker=document.getElementsByClassName("flask1")[0];
+			pip=document.getElementsByClassName("dropper")[0];
+			position=beaker.getBoundingClientRect();
+			pip.setAttribute('data-x', position.left-150)
+			pip.setAttribute('data-y', position.top-150)
+			menu=document.getElementsByClassName("menu")[6];
+			menu.style.display="block";
+			document.addEventListener('mousedown', function(e){
+				menu=document.getElementsByClassName("menu")[6];
+				menu.style.display="none";
+			});
+		 },
+		ondragleave: function () {
+			menu=document.getElementsByClassName("menu")[6];
+			menu.style.display="none";
+		}
+		// ondrop: function () {
+		// 	console.log("Pipette dropped");
+		// }
+	});
+
+	interact('.beaker1').dropzone({
+		accept: '.burette',
+		overlap: 0.2,
+		ondragenter: function () {
+			beaker=document.getElementsByClassName("beaker1")[0];
+			pip=document.getElementsByClassName("burette")[0];
+			position=beaker.getBoundingClientRect();
+			pip.setAttribute('data-x', position.left-350);
+			pip.setAttribute('data-y', position.top-150);
+			menu=document.getElementsByClassName("menu")[7];
+			menu.style.display="block";
+			document.addEventListener('mousedown', function(e){
+				menu=document.getElementsByClassName("menu")[7];
+				menu.style.display="none";
+			});
+		 },
+		ondragleave: function () {
+			menu=document.getElementsByClassName("menu")[7];
+			menu.style.display="none";
+		}
+		// ondrop: function () {
+		// 	console.log("Pipette dropped");
+		// }
+	});
+
+	interact('.flask1').dropzone({
+		accept: '.burette',
+		overlap: 0.2,
+		ondragenter: function () {
+			beaker=document.getElementsByClassName("flask1")[0];
+			pip=document.getElementsByClassName("burette")[0];
+			position=beaker.getBoundingClientRect();
+			pip.setAttribute('data-x', position.left-350)
+			pip.setAttribute('data-y', position.top-150)
+			menu=document.getElementsByClassName("menu")[7];
+			menu.style.display="block";
+			document.addEventListener('mousedown', function(e){
+				menu=document.getElementsByClassName("menu")[7];
+				menu.style.display="none";
+			});
+		 },
+		ondragleave: function () {
+			menu=document.getElementsByClassName("menu")[7];
+			menu.style.display="none";
+		}
+		// ondrop: function () {
+		// 	console.log("Pipette dropped");
+		// }
+	});
+
+
 </script>
 <script type="text/javascript">
 	b=document.getElementsByClassName("beaker1");
