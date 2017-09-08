@@ -3,7 +3,9 @@
 <head>
 	<title>Week2 Practice</title>
 	<style>
-
+		.rotating{
+			transition: transform 0.8s;
+		}
 		body {
 			color: #5f6062;
 			font-family: Arial, Helvetica, sans-serif;
@@ -200,6 +202,40 @@
 <img src="1000mlflask.png" height="300px" class="draggable drag-drop flask1">
 </div>
 <script type="text/javascript">
+	hasDragged=false;
+	hasDoubleTapped=false;
+	hasHeld=false;
+	interact('.arrow')
+		.on('doubletap', function(event){
+			var target = event.target;
+			flag=parseFloat(target.getAttribute('data-flag') || 0)
+			flag+=1;
+			target.setAttribute('data-flag', flag);
+			target.className+=' rotating';
+			target.style.webkitTransform+="rotateZ(30deg)";
+			setTimeout(function(){ target.classList.remove("rotating"); }, 900);
+			if (hasDoubleTapped==false)
+			{
+				hasDoubleTapped=true;
+				// instr.innerText="Great! Now try long pressing on the object"
+			}
+
+		})
+		.on('hold', function(event){
+			var target = event.target;
+			flag=parseFloat(target.getAttribute('data-flag') || 0);
+			angle=flag*30;
+			target.className+=' rotating'
+			target.style.webkitTransform+="rotateZ(-"+angle+"deg)";
+			setTimeout(function(){ target.classList.remove("rotating"); }, 900);
+			target.setAttribute('data-flag', 0);
+			if (hasHeld==false)
+			{
+				hasHeld=true;
+				// instr.innerText`	="Awesome! You are now ready."
+			}
+		})
+
 	interact('.draggable')
 	.draggable({
 		inertia: true,

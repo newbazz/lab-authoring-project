@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Week2 Practice</title>
+	<style>
+		.rotating{
+			transition: transform 0.8s;
+		}
+		body {
+			color: #5f6062;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 1em;
+		}
+
+		.menu {
+			-webkit-box-shadow: 0px 0px 3px #26292e;
+			box-shadow: 0px 0px 3px #26292e;
+			margin: 10px auto;
+		}
+
+		.menu .menu-header {
+			background: #65707f; /* Old browsers */
+			background: -moz-linear-gradient(top,  #65707f 0%, #4a5564 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#65707f), color-stop(100%,#4a5564)); 
+			background: -webkit-linear-gradient(top,  #65707f 0%,#4a5564 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(top,  #65707f 0%,#4a5564 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(top,  #65707f 0%,#4a5564 100%); /* IE10+ */
+			background: linear-gradient(to bottom,  #65707f 0%,#4a5564 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#65707f', endColorstr='#4a5564',GradientType=0 ); /* IE6-9 */
+			background-color: #586272;
+			-webkit-border-radius: 5px 5px 0px 0px;
+			-moz-border-radius: 5px 5px 0px 0px;
+			border-radius: 5px 5px 0px 0px;
+			text-align: center;	
+		}
+
+		.menu .menu-header {
+			color: #fff;
+			font-size: 0.8em;
+			text-transform: uppercase;
+		}
+
+		.menu-header {
+			padding: 1px;
+		}
+
+		.menu-content > ul {
+			text-align: center;
+			margin: 0;
+			padding: 0;
+		}
+
+		.menu .menu-content {
+			background-color: #fff;
+		}
+
+		.menu .menu-content ul {
+			list-style: none;	
+		}
+
+		.menu .menu-content ul li {
+			border-bottom: 1px solid #efeff0;
+			font-size: 0.7em;
+			padding: 10px 16px;
+		}
+
+		h3 {
+			margin-top: 6px;
+			margin-bottom: 6px;
+		}	
+
+	}
+}
+	</style>
+</head>
+<body>
+<script
+	src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://code.interactjs.io/v1.2.9/interact.min.js"></script>
+
+<div class="menu" style="z-index: 100; display: none; position: absolute;">
+	<div class="menu-header">
+		<h3>Beaker</h3>
+	</div>
+	<div class="menu-content">
+		<ul>
+			<li><strong>Volume: </strong>500 mL</li>
+			<li><strong>Volume of Liquid: </strong><span id="binfo">0</span> mL</li>
+			<li><strong>Solution: </strong>(null)</li>
+			<li><strong>Name: </strong>Beaker 1</li>
+			<li style="color: #F44336"><strong><div onclick="Remove() id="remove" >REMOVE</div></strong></li>
+		</ul>
+	</div>
+</div>
+<div class="menu" style="z-index: 100; display: none; position: absolute;">
+	<div class="menu-header">
+		<h3>Flask</h3>
+	</div>
+	<div class="menu-content">
+		<ul>
+			<li><strong>Volume: </strong>1000 mL</li>
+			<li><strong>Volume of Liquid: </strong><span id="finfo">0</span> mL</li>
+			<li><strong>Solution: </strong>(null)</li>
+			<li><strong>Name: </strong>Flask</li>
+			<li style="color: #F44336"><strong><div onclick="Remove() id="remove" >REMOVE</div></strong></li>
+		</ul>
+	</div>
+</div>
+
+<div class="menu" style="z-index: 100; display: none; position: absolute;">
+	<div class="menu-header">
+		<h3>Burrete</h3>
+	</div>
+	<div class="menu-content pipinfo">
+		<ul>
+			<li><strong>Volume : </strong>20 mL</li>
+			<li><strong>Volume of Liquid: </strong><span id="pipinfoFill">0<span> mL  </li>
+			<li><strong>Solution: </strong>(null)</li>
+			<li><strong>Name: </strong>Burette</li>
+			<li style="color: #F44336"><strong><div onclick="Remove()" id="remove">REMOVE</div></strong></li>
+		</ul>
+	</div>
+</div>
+<div class="menu" style="z-index: 100; display: none; position: absolute;">
+	<div class="menu-header">
+		<h3>Burrgfdrete</h3>
+	</div>
+	<div class="menu-content pipinfo">
+		<ul>
+			<li><strong>Volume : </strong>20 mL</li>
+			<li><strong>Volume of Liquid: </strong><span id="pipinfoFill">0<span> mL  </li>
+			<li><strong>Solution: </strong>(null)</li>
+			<li><strong>Name: </strong>Burette</li>
+			<li style="color: #F44336"><strong><div onclick="Remove()" id="remove">REMOVE</div></strong></li>
+		</ul>
+	</div>
+</div>
+<div id="apparatus">
+<br/>
+<div class="draggable drag-drop burrette" style="width: 200px" id="bur">
+	<img src="burrete.png"  height="300px">
+	<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">
+		<div class="menu-content">
+			<ul>
+				<li onclick="withdraw('b')">Withdraw</li>
+				<li onclick="pour('b')">Pour</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div id="rotate">
+<img src="beaker1.png" height="300px" class="draggable drag-drop beaker1 arrow" id='kk'>
+<img src="1000mlflask.png" height="300px" class="draggable drag-drop flask arrow">
+</div>
+</div>
+<div class="draggable drag-drop burrette" style="width: 200px" id="pipp">
+	<img src="pipette.svg" id="arrow" height="300px" >
+	<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">	
+		<div class="menu-content">
+			<ul>
+				<li onclick="withdraw('p')">Withdraw</li>
+				<li onclick="pour('p')">Pour</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	isDroppedAt=""
+	hasDragged=false;
+	hasDoubleTapped=false;
+	hasHeld=false;
+	pipIn="";
+	burIn="";
+	interact('.arrow')
+		.on('doubletap', function(event){
+			var target = event.target;
+			flag=parseFloat(target.getAttribute('data-flag') || 0)
+			flag+=1;
+			target.setAttribute('data-flag', flag);
+			target.className+=' rotating';
+			target.style.webkitTransform+="rotateZ(30deg)";
+			setTimeout(function(){ target.classList.remove("rotating"); }, 900);
+			if (hasDoubleTapped==false)
+			{
+				hasDoubleTapped=true;
+				// instr.innerText="Great! Now try long pressing on the object"
+			}
+
+		})
+		.on('hold', function(event){
+			var target = event.target;
+			flag=parseFloat(target.getAttribute('data-flag') || 0);
+			angle=flag*30;
+			target.className+=' rotating'
+			target.style.webkitTransform+="rotateZ(-"+angle+"deg)";
+			setTimeout(function(){ target.classList.remove("rotating"); }, 900);
+			target.setAttribute('data-flag', 0);
+			if (hasHeld==false)
+			{
+				hasHeld=true;
+				// instr.innerText`	="Awesome! You are now ready."
+			}
+		})
+
+
+	interact('.draggable')
+	.draggable({
+		inertia: true,
+		autoScroll: true,
+		onmove: dragMoveListener
+	});
+	interact('.burrette')
+	.draggable({
+		inertia: true,
+		autoScroll: true,
+		onmove: dragMoveListener
+	});
+	interact('.pipp')
+	.draggable({
+		inertia: true,
+		autoScroll: true,
+		onmove: dragMoveListener
+	});
+
+	function dragMoveListener (event) {
+		var target = event.target,
+		x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+		y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+	target.style.webkitTransform =
+	target.style.transform =
+		'translate(' + x + 'px, ' + y + 'px)';
+
+	target.setAttribute('data-x', x);
+	target.setAttribute('data-y', y);
+	}
+
+	window.dragMoveListener = dragMoveListener;
+
+
+	interact('.beaker1').dropzone({
+		accept: '.burrette',
+		overlap: 0.2,
+		ondragenter: function (event) {
+			var x=event.relatedTarget.id;
+			isDroppedAt="beaker";
+			if(x=="bur"){
+				burIn="beaker";
+				menu=document.getElementsByClassName("menu")[4];
+				menu.style.display="block";
+			}
+			if(x=="pipp"){
+				pipIn="beaker";
+				beaker=document.getElementsByClassName("beaker1")[0];
+				pip=document.getElementsByClassName("burrette")[1];
+				menu=document.getElementsByClassName("menu")[5];
+				menu.style.display="block";
+			}
+			document.addEventListener('mousedown', function(e){
+				menu=document.getElementsByClassName("menu")[5];
+				//menu.style.display="none";
+			});
+		 },
+		ondragleave: function () {
+			menu=document.getElementsByClassName("menu")[5];
+			//menu.style.display="none";
+		}
+	});
+	interact('.flask').dropzone({
+		accept: '.burrette',
+		overlap: 0.2,
+		ondragenter: function (event) {
+			isDroppedAt="flask";
+			var x=event.relatedTarget.id;
+			console.log(x)
+			if(x=="bur"){
+				burIn="flask";
+				menu=document.getElementsByClassName("menu")[4];
+				console.log(menu)
+				menu.style.display="block";
+				document.addEventListener('mousedown', function(e){
+					menu=document.getElementsByClassName("menu")[4];
+					//menu.style.display="none";
+
+				});
+			}
+			else if(x=="pipp"){
+				pipIn="flask";
+				menu=document.getElementsByClassName("menu")[5];
+				menu.style.display="block";
+				document.addEventListener('mousedown', function(e){
+					menu=document.getElementsByClassName("menu")[5];
+					//menu.style.display="none";
+
+				});
+			}
+		 },
+		ondragleave: function () {
+			menu=document.getElementsByClassName("menu")[3];
+			//menu.style.display="none";
+		}
+	});
+</script>
+<script type="text/javascript">
+	b=document.getElementsByClassName("beaker1");
+	b[0].addEventListener('contextmenu', function(e){
+		menu=document.getElementsByClassName("menu")[0];
+		menu.style.left=(e.pageX-10)+"px";
+		menu.style.top=(e.pageY-10)+"px";
+		menu.style.display="block";
+		e.preventDefault();
+	})
+	document.addEventListener('click', function(e){
+		menu=document.getElementsByClassName("menu")[0];
+		menu.style.display="none";
+		menu.style.left="";
+		menu.style.top="";
+	});
+	f=document.getElementsByClassName("flask");
+	f[0].addEventListener('contextmenu', function(e){
+		menu=document.getElementsByClassName("menu")[1];
+		menu.style.left=(e.pageX-10)+"px";
+		menu.style.top=(e.pageY-10)+"px";
+		menu.style.display="block";
+		e.preventDefault();
+	})
+	document.addEventListener('click', function(e){
+		menu=document.getElementsByClassName("menu")[1];
+		menu.style.display="none";
+		menu.style.left="";
+		menu.style.top="";
+	});
+	p=document.getElementsByClassName("burrette");
+	p[0].addEventListener('contextmenu', function(e){
+		menu=document.getElementsByClassName("menu")[2];
+		menu.style.left=(e.pageX-10)+"px";
+		menu.style.top=(e.pageY-10)+"px";
+		menu.style.display="block";
+		e.preventDefault();
+	})
+	document.addEventListener('click', function(e){
+		menu=document.getElementsByClassName("menu")[2];
+		menu.style.display="none";
+		menu.style.left="";
+		menu.style.top="";
+	});
+	bu=document.getElementsByClassName("burrette");
+	bu[1].addEventListener('contextmenu', function(e){
+		menu=document.getElementsByClassName("menu")[3];
+		menu.style.left=(e.pageX-10)+"px";
+		menu.style.top=(e.pageY-10)+"px";
+		menu.style.display="block";
+		e.preventDefault();
+	})
+	document.addEventListener('click', function(e){
+		menu=document.getElementsByClassName("menu")[3];
+		menu.style.display="none";
+		menu.style.left="";
+		menu.style.top="";
+	});
+	Remove=function(){
+		console.log('ok');
+	}
+	withdraw=function(){
+		console.log(isDroppedAt);
+		if(isDroppedAt=="beaker"){
+			var bFill=document.getElementById('binfo');
+		}
+		if(isDroppedAt=="flask"){
+			var bFill=document.getElementById('finfo');
+		}
+		var pipFill=document.getElementById('pipinfoFill');
+		if(parseInt(pipFill.innerHTML)>=50)window.alert('Already full!!');
+		else if(parseInt(bFill.innerHTML)<=0)window.alert(isDroppedAt +' empty!!');
+		else{
+			var x=pipFill.innerHTML;
+			var y=bFill.innerHTML;
+			pipFill.innerHTML=String(parseInt(x)+10);
+			bFill.innerHTML=String(parseInt(y)+10)
+		}
+		menu=document.getElementsByClassName("menu")[3];
+		menu.style.display="none";
+	}
+	pour=function(inside){
+		if(inside=="p"){
+			if(pipIn=="beaker"){
+				bmax=500;
+				bFill=document.getElementById('binfo');
+			}
+			if(pipIn=="flask"){
+				bmax=1000;
+				bFill=document.getElementById('finfo');
+			}
+			var pipFill=document.getElementById('pipinfoFill');
+			if(parseInt(pipFill.innerHTML)==0)window.alert('Already empty!!');
+			else if(parseInt(bFill.innerHTML)>=bmax)window.alert(isDroppedAt+' full!!');
+			else{
+				var x=pipFill.innerHTML;
+				var y=bFill.innerHTML;
+				pipFill.innerHTML=String(parseInt(x)-10);
+				bFill.innerHTML=String(parseInt(y)-10)
+			}
+			menu=document.getElementsByClassName("menu")[3];
+			menu.style.display="none";
+		}
+		if(inside=="b"){
+			if(burIn=="beaker"){
+				bmax=500;
+				bFill=document.getElementById('binfo');
+			}
+			if(burIn=="flask"){
+				bmax=1000;
+				bFill=document.getElementById('finfo');
+			}
+			var pipFill=document.getElementById('burinfoFill');
+			if(parseInt(pipFill.innerHTML)==0)window.alert('Already empty!!');
+			else if(parseInt(bFill.innerHTML)>=bmax)window.alert(isDroppedAt+' full!!');
+			else{
+				var x=pipFill.innerHTML;
+				var y=bFill.innerHTML;
+				pipFill.innerHTML=String(parseInt(x)-10);
+				bFill.innerHTML=String(parseInt(y)-10)
+			}
+			menu=document.getElementsByClassName("menu")[3];
+			menu.style.display="none";
+		}
+
+	}
+</script>
+</body>
+</html>
