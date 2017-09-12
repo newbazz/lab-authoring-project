@@ -1,0 +1,9 @@
+Time: 5:30 PM
+
+==> Make a basic library of all equipments
+
+==> Implement an experiment from Vlabs using these equipments. Hardcoding this experiment can work too. More functionality can be added later.
+
+==> For better understanding we can refer PhET and try and simulate one of their experiments which explain a concept which is already being explained in one of existing Vlabs experiments.
+
+==> Meet daily with client to get feedback on progress.
