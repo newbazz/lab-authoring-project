@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Week2 Practice</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<script
+	src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://code.interactjs.io/v1.2.9/interact.min.js"></script>
+
+<div class="menu" style="z-index: 100; display: none; position: absolute;">
+	<div class="menu-header">
+		<h3>Beaker</h3>
+	</div>
+	<div class="menu-content">
+		<ul>
+			<li><strong>Volume: </strong>500 mL</li>
+			<li id="volume_liquid beaker"><strong>Volume of Liquid: </strong>100 mL</li>
+			<li id="solution_name beaker"><strong>Solution: </strong>Water (H<sub>2</sub>O)</li>
+			<li><strong>Name: </strong>Beaker 1</li>
+			<li style="color: #F44336"><strong><div onclick="remove()">REMOVE</div></strong></li>
+		</ul>
+	</div>
+</div>
+
+<div class="menu" style="z-index: 100; display: none; position: absolute;">
+	<div class="menu-header">
+		<h3>Pipette</h3>
+	</div>
+	<div class="menu-content">
+		<ul>
+			<li id="volume_liquid pipette"><strong>Volume of Liquid: </strong>400 mL</li>
+			<li id="solution_name pipette"><strong>Solution: </strong>Water (H<sub>2</sub>O)</li>
+			<li><strong>Name: </strong>Pipette 1</li>
+			<li style="color: #F44336"><strong><div onclick="remove()">REMOVE</div></strong></li>
+		</ul>
+	</div>
+</div>
+
+<table border="1"> <!-- flask, pipette, spoon, heater -->
+<tr>
+	<td>
+		<div class="draggable drag-drop pipette" style="height: 210px; width: 200px">
+			<img src="pipette.svg" height="210px">
+			<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">
+				<div class="menu-header">
+					<h3>Pipette</h3>
+				</div>
+				<div class="menu-content">
+					<ul>
+						<li id="withdraw">Withdraw</li>
+						<li id="pour">Pour</li>
+						<li id="close" style="color: #F44336">Close</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</td>
+	<td rowspan="3" style="width: 500px"></td>
+	</tr>
+	<tr>
+		<td>
+			<div class="draggable drag-drop beaker1" style="height: 210px;position: relative">
+				<div id="water" style="background-color: aqua; bottom: 0px; position: absolute; height: 36px; width: 144px; z-index: -1000">
+				</div>
+				<img src="beaker1.png" height="210px" style="display: block">
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div class="draggable drag-drop spoon" style="height: 210px; position: relative">
+				<img src="spoon.png" height="300px">
+				<div class="menu" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px">
+					<div class="menu-header">
+						<h3>Spoon</h3>
+					</div>
+					<div class="menu-content">
+						<ul>
+							<li id="add">Add</li>
+							<li id="close" style="color: #F44336">Close</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</td>
+	</tr>
+</table>
+ 
+<script type="text/javascript" src="drag.js"></script>
+<script type="text/javascript" src="pipette_actions.js"></script>
+<script type="text/javascript" SRC="enter.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript" src="spoon_actions.js"></script>
+</body>
+</html>
