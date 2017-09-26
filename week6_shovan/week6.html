@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Week6 Practice</title>
+	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body style="width: 100%">
+<script
+	src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://code.interactjs.io/v1.2.9/interact.min.js"></script>
+
+<!-- Beaker Menu -->
+<div class="menu" id="menu_beaker" style="z-index: 100; display: none; position: absolute;">
+	<div class="menu-header">
+		<h6>Beaker</h6>
+	</div>
+	<div class="menu-content" id="menu_content_beaker">
+		<ul>
+			<li><strong>Volume: </strong>500 mL</li>
+			<li id="volume_liquid beaker"><strong>Volume of Liquid: </strong>100 mL</li>
+			<li id="solution_name beaker"><strong>Solution: </strong>Water (H<sub>2</sub>O)</li>
+			<li id="temp beaker"><strong>Temperature: </strong>30<sup>o</sup>C</li>
+			<li><strong>Name: </strong>Beaker 1</li>
+			<li style="color: #F44336"><strong><div onclick="remove()">REMOVE</div></strong></li>
+		</ul>
+	</div>
+</div>
+
+<!-- Pipette Menu -->
+<div class="menu" id="pipette" style="z-index: 100; display: none; position: absolute;">
+	<div class="menu-header">
+		<h6>Pipette</h6>
+	</div>
+	<div class="menu-content" id="menu_content_pipette">
+		<ul>
+			<li id="volume_liquid pipette"><strong>Volume of Liquid: </strong>400 mL</li>
+			<li id="solution_name pipette"><strong>Solution: </strong>Water (H<sub>2</sub>O)</li>
+			<li><strong>Name: </strong>Pipette 1</li>
+			<li style="color: #F44336"><strong><div onclick="remove()">REMOVE</div></strong></li>
+		</ul>
+	</div>
+</div>
+
+<!-- Main Page -->
+<div style="display: table;width: 100%; height: 600px">
+	<div style="display: table-row;">
+		<div style="display: table-cell; width: 15%; height: 5%; vertical-align: top;" class="header"><h3 style="margin-top:10px"><strong>Inventory</strong></div>
+		<div style="display: table-cell; width: 1%; vertical-align: top;"></div>
+		<div style="display: table-cell; vertical-align: top;" class="header"><h3 style="margin-top: 10px"><strong>Workspace</strong></div>
+	</div>
+	<div style="display: table-row;">
+		<!-- Sidebar -->
+		<div style="display: table-cell; width: 15%; vertical-align: top;">
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" href="#collapseroot1">Inventory</a>
+						</h4>
+					</div>
+					<div id="collapseroot1" class="panel-collapse collapse">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" href="#collapse1">Containers</a>
+								</h4>
+							</div>
+						</div>
+						<div id="collapse1" class="panel-collapse collapse">
+							<div class="panel-body">
+								<p id="cat1opt1">Beaker</p>
+								<p id="cat1opt2">Pipette</p>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" href="#collapse2">Apparatus</a>
+								</h4>
+							</div>
+							<div id="collapse2" class="panel-collapse collapse">
+								<div class="panel-body">
+									<p id="cat2opt1">Spoon</p>
+									<p id="cat2opt2">Burner</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" href="#collapseroot2">Properties</a>
+						</h4>
+					</div>
+					<div id="collapseroot2" class="panel-collapse collapse">
+					<strong>Please click on an object</strong>
+					</div>
+				</div>
+		</div> 
+	</div>
+	<div style="display: table-cell; width: 1%; vertical-align: top;"></div>
+	<!-- Workspace -->
+	<div style="display: table-cell;border: 1px solid black; vertical-align: top; " id="workspace"></div>
+	
+	</div>
+</div>
+	
+<script type="text/javascript">
+	$("#cat1opt2").click(function(){ //pipette
+		$("#workspace")[0].innerHTML+="<div class='draggable drag-drop pipette' style='height: 150px; width: 40px; display: inline-block; background-color: blue'><img src='pipette.svg' height='150px'><div class='menu' id='pipette_action' style='z-index: 100; display: none; position: absolute; left: 100px; top: 10px'><div class='menu-header'><h6>Pipette</h6></div><div class='menu-content'><ul><li id='withdraw'>Withdraw</li><li id='pour'>Pour</li><li id='close_pipette' style='color: #F44336'>Close</li></ul></div></div></div>"
+		show_menu_p()
+		las()
+	})
+
+	$("#cat1opt1").click(function(){ //beaker
+		$("#workspace")[0].innerHTML+="<div class='draggable drag-drop beaker1' style='height: 150px; width: 120px; position: relative; display: inline-block; background-color: blue'><div id='water' style='background-color: aqua; bottom: 0px; position: absolute; height: 36px; width:115px;z-index: -1000'></div><img src='beaker1.png' height='150px' style='display: block'></div>";
+		show_menu_b()
+	})
+
+	$("#cat2opt1").click(function(){ //spoon
+		$("#workspace")[0].innerHTML+='<div class="draggable drag-drop spoon" style="height: 150px; width: 150px; display: inline-block; background-color: blue"><img src="spoon.png" height="150px"><div class="menu" id="spoon_action" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px"><div class="menu-header"><h6>Spoon</h6></div><div class="menu-content"><ul><li id="add">Add</li><li id="close_spoon" style="color: #F44336">Close</li></ul></div></div></div>'
+	})
+
+	$("#cat2opt2").click(function(){ //beaker
+		$("#workspace")[0].innerHTML+='<div class="draggable drag-drop burner" style="height: 150px; position: relative; display: inline-block; background-color: blue"><img src="burner.png" height="150px"><div class="menu" id="burner_action" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px"><div class="menu-header"><h6>Burner</h6></div><div class="menu-content"><ul><li id="add">Burn</li><li id="close_burner" style="color: #F44336">Close</li></ul></div></div></div>'
+	})
+</script>
+
+<script type="text/javascript">
+	document.body.onclick=function(e){
+		class_clicked=e.path[1].className
+		if(class_clicked.indexOf("draggable")!=-1)
+		{
+			$("#collapseroot2")[0].innerHTML=$("#menu_content_pipette")[0].innerHTML
+		}
+	}
+</script>
+
+
+
+<script type="text/javascript" src="drag.js"></script>
+<script type="text/javascript" src="pipette_action.js"></script>
+<script type="text/javascript" src="spoon_actions.js"></script>
+<script type="text/javascript" src="burner_actions.js"></script>
+<script type="text/javascript" SRC="enter.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+</body>
+</html>
