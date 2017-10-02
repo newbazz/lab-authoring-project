@@ -14,9 +14,9 @@ function add(){
 	})
 }
 
-function close(){
+function close_burner(){
 	$('#close_burner').mouseup(function(){
-		$('#burner_action').style.display='none';
+		$('#burner_action')[0].style.display='none';
 	})
 }
 
@@ -42,6 +42,12 @@ function cool(){
 		temp=temp.toFixed(3)
 		$("[id='temp beaker']")[0].innerHTML="<strong>Temperature: </strong>"+temp+"<sup>o</sup>C"
 		$("#beaker_display")[0].innerHTML=temp
+		if(temp>=100)
+		{
+			temp=100
+			alert("STOOOPPPPP!!!")
+			clearInterval(id)
+		}
 	}, 500)
 }
 
@@ -51,7 +57,7 @@ function burner_action()
 		add();
 		bool1=1
 	}
-	close();
+	close_burner();
 	cool();
 	$("#collapseroot2")[0].innerHTML="<strong>Methods:</strong><ul><li>Drag the burner here and there</li><li>Drag it into a beaker to see its actions</li><li>The temperature of the beaker's solution increases as long as you hold the 'Burn' button</li><li>On leaving the 'Burn' button, the liquid goes back to cooling according to the surrounding"
 }

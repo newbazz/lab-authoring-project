@@ -5,7 +5,6 @@ function add_pipette(){
 	$('#pour').mouseup(function(){
 		clearInterval(id_pour)
 	}).mousedown(function(){
-		console.log(1)
 		id_pour=setInterval(pour, 50)
 	})
 
@@ -17,17 +16,17 @@ function add_pipette(){
 }
 
 function pour(){
-	height+=1
 	if(height<130)
 	{
-		$("#beaker_display")[0].innerHTML=" "
+		height+=1
+		// $("#beaker_display")[0].innerHTML=" "
 		$("[id='volume_liquid beaker']")[0].innerHTML="<strong>Volume of Liquid: </strong>"+(height*(50/18)).toFixed(3)+" mL"
 		$("[id='volume_liquid pipette']")[0].innerHTML="<strong>Volume of Liquid: </strong>"+(500-(height*(50/18)).toFixed(3))+" mL"
 		$('#water').height(height)
 	}
 	else
 	{
-		$("#beaker_display")[0].innerHTML="Beaker Full!!"
+		// $("#beaker_display")[0].innerHTML="Beaker Full!!"
 		$("[id='volume_liquid beaker']")[0].innerHTML="<strong>Volume of Liquid: </strong>500 mL"
 		$("[id='volume_liquid pipette']")[0].innerHTML="<strong>Volume of Liquid: </strong>0 mL"
 		$('#water').height(130)
@@ -35,26 +34,26 @@ function pour(){
 }
 
 function withdraw(){
-	height-=1
 	if(height>0)
 	{
-		$("#beaker_display")[0].innerHTML=" "
+		height-=1
+		// $("#beaker_display")[0].innerHTML=" "
 		$("[id='volume_liquid beaker']")[0].innerHTML="<strong>Volume of Liquid: </strong>"+(height*(50/18)).toFixed(3)+" mL"
 		$("[id='volume_liquid pipette']")[0].innerHTML="<strong>Volume of Liquid: </strong>"+(500-(height*(50/18))).toFixed(3)+" mL"
 		$('#water').height(height)
 	}
 	else
 	{
-		$("#beaker_display")[0].innerHTML="Beaker Empty!!"
-		$("[id='volume_liquid beaker']")[0].innerHTML="<strong>Volume of Liquid: </strong>500 mL"
-		$("[id='volume_liquid pipette']")[0].innerHTML="<strong>Volume of Liquid: </strong>0 mL"
+		// $("#beaker_display")[0].innerHTML="Beaker Empty!!"
+		$("[id='volume_liquid beaker']")[0].innerHTML="<strong>Volume of Liquid: </strong>0 mL"
+		$("[id='volume_liquid pipette']")[0].innerHTML="<strong>Volume of Liquid: </strong>500 mL"
 		$('#water').height(0)
 	}
 }
 
 function close_pipette(){
 	$('#close_pipette').mouseup(function(){
-		$('#pipette_action').style.display='none';
+		$('#pipette_action')[0].style.display='none';
 	})
 }
 
