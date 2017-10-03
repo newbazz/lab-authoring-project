@@ -1,0 +1,14 @@
+Minutes of Meet (03-10-2017)
+
+==> Some minor fixes in the experimental part
+    a) Water should be poured from another container and pipette should only withdraw/pour from the amount present in beaker.
+    b) Take whatever is in the spoon from some container.
+    c) Implement stirrer, magnetic heater.
+    d) Shift properties sidebar to the right, and add image of the object too.
+    
+==> Some fixes in the conceptual part
+    a) Improve layout.
+    b) Molecules should cover all of the magnifying glass. Either make the magnifying glass square shaped, or make the region of molecules circular.
+    c) Water molecules should be larger, and more in number.
+
+==> Next meeting on Friday 9:30 AM.
