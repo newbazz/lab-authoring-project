@@ -14,7 +14,12 @@ function backgroundSequence() {
 			document.getElementsByClassName('cover-body')[0].style.background = "url(" + base + bgImageArray[k] + ")";
 			document.getElementsByClassName('cover-body')[0].style.backgroundSize ="inherit";
 		if ((k + 1) === bgImageArray.length) { setTimeout(function() { backgroundSequence() }, (secs * 1000))} else { k++; }			
-		}, (secs * 1000) * i)	
+		}, (secs * 1000) * i);	
 	}
 }
 backgroundSequence();
+
+
+function showTheory(){
+
+}
