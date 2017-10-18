@@ -1,7 +1,7 @@
 var bgImageArray = [".jpg","1.jpg","2.jpg"],
 base = "cover",
 secs = 4;
-newsecs = 6;
+newsecs = 8;
 idx=0;
 bgImageArray.forEach(function(img){
     new Image().src = base + img; 
@@ -20,17 +20,38 @@ function backgroundSequence() {
 	}
 }
 
-
 function showTheory(){
 	window.clearTimeout();
 	setTimeout(function(){
 		console.log(idx);
-		$("#home"+String((idx+1)%3)).fadeToggle(1500);
-		$("#home"+String((idx+2)%3)).fadeToggle(1500);
-		$("#home"+String(idx%3)).fadeToggle(1500);
+		setTimeout(function()
+				{
+					$(".home"+String(idx%3)).fadeOut(2000);
+					setTimeout(function()
+							{
+								$(".home"+String((idx+2)%3)).fadeOut(2000);
+								setTimeout(function()
+										{
+											$(".home"+String((idx+1)%3)).fadeIn(2000);
+										},1500);
+							},1500);
+				},1500);
 		idx++;
 		showTheory();
 	}, (newsecs * 1000));	
 }
+
+function showInfo(){
+	document.getElementsByClassName('home')[0].style.display = "none";
+	document.getElementsByClassName('theory')[0].style.display = "block";
+}
+
+function showHome(){
+	document.getElementsByClassName('theory')[0].style.display = "none";
+	document.getElementsByClassName('home')[0].style.display = "block";
+}
+
+$(".home0").fadeIn(2000);
+idx++;
 backgroundSequence();
 showTheory();
