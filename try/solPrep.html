@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SOL PREPARATION</title>
+</head>
+<style type="text/css">
+		#workspace{
+			width: 100%;
+		}
+		#meter1
+			width: 100px;
+			height: 500px;
+			float:left;
+			background-color: blue;
+		}
+		#meter2{
+			margin-left: 20px;
+			width: 100px;
+			height: 500px;
+			background-color: blue;
+			float:left;
+		}
+		#flask{
+			float:left;
+			width: 500px;
+			/*margin-left: 20px;*/
+			height: 500px;
+			bottom: 10%;
+			/*background-color: blue;*/
+		}
+
+		#meter3{
+			float:left;
+			width: 100px;
+			margin-left: 20px;
+			height: 500px;
+			background-color: blue;
+		}
+
+		.square{
+			height: 18px;
+			width: 48px;
+			background-color: red;
+			transform: translate(-15px, -5px);
+			text-align: center;
+		}
+
+		.draggable{
+			width: 18px;
+			height: 18px;
+			transform: translate(41px, 415px);
+		}
+
+		p{
+			margin:0px;
+		}
+
+		.groove{
+			margin-left: 45px;
+			width: 9px;
+			height: 400px;
+			background-color: black;
+		}
+
+		#container{
+			background-color: rgb(204, 224, 224);
+			margin-top: 425px;
+			margin-left: 100px;
+			height: 45px;
+			width: 300px;
+			bottom: 10%;
+		}
+	</style>
+<body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>	
+<script type="text/javascript" src="http://code.interactjs.io/v1.2.9/interact.min.js"></script>
+<div id="workspace">
+		<div id="meter1">
+		<!-- FeCl3 -->
+			<div class="draggable" id="solute">
+				<div class='square'>0</div>
+			</div>
+			<div class="groove"></div>
+		</div>
+
+		<div id="meter2">
+		<!-- Solvent Amount added(in litres) -->
+			<div class="draggable" id="solvent">
+				<div class='square'>0</div>
+			</div>
+			<div class="groove"></div>
+		</div>
+
+		<div id="flask">
+		<div id="container"></div>
+		</div>
+
+		<div id="meter3">
+	<!-- 	Molarity
+		</br> -->
+			<br>
+			<div class='square' style=" position: absolute; margin-top: 400px; width: 30px; margin-left: 80px; float: right;"></div>
+			<div class="groove"></div>
+		</div>
+</div>
+<canvas id="myCanvas"></canvas>
+</body>
+<script type="text/javascript">
+	var myVinyls = {
+    "Classical music":0,
+    "Alternative rock":100,
+    // "Pop": 0,
+    // "Jazz":0,
+};
+	$('#container').hover(function(){
+		var cur = $(this);
+		cur.css("cursor", "pointer");
+	});
+	$('#container').click(function(){
+		document.getElementById('container').style.display="none";
+		var x=document.getElementById('flask');
+		var z=document.getElementById('mlens');
+		if(z)z.remove();
+		var y=document.createElement('img');
+		y.id="mlens";
+		y.src="m.svg";
+		x.appendChild(y);
+		var canvas=document.getElementById('myCanvas');
+		var ctx=canvas.getContext('2d');
+		ctx.canvas.width = 1000;
+		ctx.canvas.height = 10000000;
+
+	});	
+	function drawLine(ctx, startX, startY, endX, endY,color){
+	    ctx.save();
+	    ctx.strokeStyle = color;
+	    ctx.beginPath();
+	    ctx.moveTo(startX,startY);
+	    ctx.lineTo(endX,endY);
+	    ctx.stroke();
+	    ctx.restore();
+	}
+	function drawBar(ctx, upperLeftCornerX, upperLeftCornerY, width, height,color){
+	    ctx.save();
+	    ctx.fillStyle=color;
+	    ctx.fillRect(upperLeftCornerX,upperLeftCornerY,width,height);
+	    ctx.restore();
+	}
+	var Barchart = function(options){
+	    this.options = options;
+	    this.canvas = options.canvas;
+	    this.ctx = this.canvas.getContext("2d");
+	    this.colors = options.colors;
+	  
+	    this.draw = function(){
+	        var maxValue = 0;
+	        for (var categ in this.options.data){
+	            maxValue = Math.max(maxValue,this.options.data[categ]);
+	        }
+	        var canvasActualHeight = this.canvas.height - this.options.padding * 2;
+	        var canvasActualWidth = this.canvas.width - this.options.padding * 2;
+	 
+	        //drawing the grid lines
+	        var gridValue = 0;
+	        while (gridValue <= maxValue){
+	            var gridY = canvasActualHeight * (1 - gridValue/maxValue) + this.options.padding;
+	            drawLine(
+	                this.ctx,
+	                0,
+	                gridY,
+	                this.canvas.width,
+	                gridY,
+	                this.options.gridColor
+	            );
+	             
+	            //writing grid markers
+	            this.ctx.save();
+	            this.ctx.fillStyle = this.options.gridColor;
+	            this.ctx.font = "bold 10px Arial";
+	            this.ctx.fillText(gridValue, 10,gridY - 2);
+	            this.ctx.restore();
+	 
+	            gridValue+=this.options.gridScale;
+	        }
+	  
+	        //drawing the bars
+	        var barIndex = 0;
+	        var numberOfBars = Object.keys(this.options.data).length;
+	        var barSize = (canvasActualWidth)/numberOfBars;
+	 
+	        for (categ in this.options.data){
+	            var val = this.options.data[categ];
+	            var barHeight = Math.round( canvasActualHeight * val/maxValue) ;
+	            drawBar(
+	                this.ctx,
+	                this.options.padding + barIndex * barSize,
+	                this.canvas.height - barHeight - this.options.padding,
+	                barSize,
+	                barHeight,
+	                this.colors[barIndex%this.colors.length]
+	            );
+	 
+	            barIndex++;
+	        }
+	  
+	    }
+	}
+	var myBarchart = new Barchart(
+    {
+        canvas:myCanvas,
+        padding:10,
+        gridScale:5,
+        gridColor:"#eeeeee",
+        data:myVinyls,
+        colors:["#a55ca5","#67b6c7", "#bccd7a","#eb9743"]
+    }
+);
+myBarchart.draw();
+	interact('.draggable')
+
+		.draggable({
+		autoScroll: true,
+		onmove: dragMoveListener
+		});
+
+		function dragMoveListener (event) {
+			var target = event.target
+			y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+			groove_length=parseInt(window.getComputedStyle(event.target.parentNode.querySelector(".groove")).height, 10)
+			if(y<=0 && y>=(-groove_length))
+			{
+				target.style.webkitTransform = target.style.transform ='translate(41px, ' + (420+y) + 'px)';
+				target.setAttribute('data-y', y);
+
+				p=event.target.querySelector('div')
+				p.innerHTML=-(y/400);
+				if(event.target.id==="solute"){
+					var z=document.getElementById('myCanvas');		
+					jQuery('#myCanvas').empty();
+					myVinyls["Classical music"]=-(y/4);
+					console.log(myVinyls["Alternative rock"]);
+					console.log(myVinyls["Classical music"]);
+					myBarchart.draw();
+				}
+				else if(event.target.id=="solvent"){
+					var xxxx=0;
+					console.log('else');
+				}
+
+				if(event.target.parentNode.id=="meter2")
+				{
+					container=document.getElementById("container")
+					container.style.marginTop=(425+y)+"px"
+					container.style.height=(45-y)+"px"
+				}
+
+				squares=document.getElementsByClassName("square")
+				solute=squares[0].innerHTML
+				solution=0.2+parseFloat(squares[1].innerHTML, 3)
+				molarity=solute/solution
+				y_meter3=molarity*80
+				meter3=squares[2]
+				meter3.style.marginTop=(400-y_meter3)+"px"
+				meter3.innerHTML=molarity
+
+				container=document.getElementById("container")
+				color=parseInt((224-((molarity/5)*224))).toString()
+				container.style.backgroundColor="rgb(165, "+color+", "+color+")"
+			}
+		}
+
+		window.dragMoveListener = dragMoveListener;
+</script>
+</html>
