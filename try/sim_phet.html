@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Week3</title>
+	<style type="text/css">
+		#workspace{
+			width: 100%;
+			overflow:hidden;
+		}
+		#meter1
+			width: 100px;
+			height: 500px;
+			float:left;
+			background-color: blue;
+		}
+		#meter2{
+			margin-left: 20px;
+			width: 100px;
+			height: 500px;
+			background-color: blue;
+			float:left;
+		}
+		#flask{
+			float:left;
+			width: 500px;
+			margin-left: 20px;
+			height: 500px;
+			/*background-color: blue;*/
+		}
+
+		#meter3{
+			float:left;
+			width: 100px;
+			margin-left: 20px;
+			height: 500px;
+			background-color: blue;
+		}
+
+		.square{
+			height: 18px;
+			width: 48px;
+			background-color: red;
+			transform: translate(-15px, -5px);
+			text-align: center;
+		}
+
+		.draggable{
+			width: 18px;
+			height: 18px;
+			transform: translate(41px, 415px);
+		}
+
+		p{
+			margin:0px;
+		}
+
+		.groove{
+			margin-left: 45px;
+			width: 9px;
+			height: 400px;
+			background-color: black;
+		}
+
+		#container{
+			background-color: rgb(204, 224, 224);
+			margin-top: 425px;
+			margin-left: 100px;
+			height: 45px;
+			width: 300px;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript" src="http://code.interactjs.io/v1.2.9/interact.min.js"></script>
+	<div id="workspace">
+		<div id="meter1">
+		<!-- Solute Amount(in moles) -->
+			<div class="draggable">
+				<div class='square'>0</div>
+			</div>
+			<div class="groove"></div>
+		</div>
+
+		<div id="meter2">
+		<!-- Solvent Amount added(in litres) -->
+			<div class="draggable">
+				<div class='square'>0</div>
+			</div>
+			<div class="groove"></div>
+		</div>
+
+		<div id="flask">
+			<div id="container">
+			</div>
+		</div>
+
+		<div id="meter3">
+	<!-- 	Molarity
+		</br> -->
+			</br>
+			<div class='square' style=" position: absolute; margin-top: 400px; width: 30px; margin-left: 80px; float: right;"></div>
+			<div class="groove"></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		interact('.draggable')
+
+		.draggable({
+		autoScroll: true,
+		onmove: dragMoveListener
+		});
+
+		function dragMoveListener (event) {
+			var target = event.target
+			y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+			groove_length=parseInt(window.getComputedStyle(event.target.parentNode.querySelector(".groove")).height, 10)
+			if(y<=0 && y>=(-groove_length))
+			{
+				target.style.webkitTransform = target.style.transform ='translate(41px, ' + (420+y) + 'px)';
+				target.setAttribute('data-y', y);
+
+				p=event.target.querySelector('div')
+				p.innerHTML=-(y/400)
+
+				if(event.target.parentNode.id=="meter2")
+				{
+					container=document.getElementById("container")
+					container.style.marginTop=(425+y)+"px"
+					container.style.height=(45-y)+"px"
+				}
+
+				squares=document.getElementsByClassName("square")
+				solute=squares[0].innerHTML
+				solution=0.2+parseFloat(squares[1].innerHTML, 3)
+				molarity=solute/solution
+				y_meter3=molarity*80
+				meter3=squares[2]
+				meter3.style.marginTop=(400-y_meter3)+"px"
+				meter3.innerHTML=molarity
+
+				container=document.getElementById("container")
+				color=parseInt((224-((molarity/5)*224))).toString()
+				container.style.backgroundColor="rgb(255, "+color+", "+color+")"
+			}
+		}
+
+		window.dragMoveListener = dragMoveListener;	
+	</script>
+</body>
+</html>
