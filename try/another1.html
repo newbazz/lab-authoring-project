@@ -78,6 +78,18 @@
 		  font-size: 20px;
 		  border-radius: 50px;
 		}
+		.circle_fecl{
+		  position: absolute;
+       	  content: ' \25CF';
+		  font-size: 20px;
+		  border-radius: 50px;
+		}
+		.circle_water {
+		  position: absolute;
+       	  content: ' \25CF';
+		  font-size: 20px;
+		  border-radius: 50px;
+		}
 		#button {
 		    background-color: #4CAF50; /* Green */
 		    border: none;
@@ -143,6 +155,8 @@
 	var PREVW=0;
 	var PREVF=0;
 	var heat=0;
+	var HIDDEN=0;
+	var HIDDENW=0;
 	var myVinyls = {
     "Solute":0,
     "Solvent":0,
@@ -161,13 +175,12 @@
 	var circle_water=function(){
 		var div1=document.getElementById('img');
 		var circle = document.createElement('span');
-		circle.className = 'circle';
+		circle.className = 'circle_water';
 		//left -700 -300
 		// top 100 400
 		var x=Math.floor(Math.random() * 300) +390
 		x*=-1;
 		var y=Math.floor(Math.random() * 300) + 120
-		console.log(x);
 		circle.style.marginTop=String(y)+"px";
 		circle.style.marginLeft=String(x)+"px";
 		circle.style.color="blue";
@@ -178,7 +191,7 @@
 	var circle_f=function(){
 		var div1=document.getElementById('img');
 		var circle = document.createElement('span');
-		circle.className = 'circle';
+		circle.className = 'circle_fecl';
 		//left -700 -300
 		// top 100 400
 		var x=Math.floor(Math.random() * 300) + 390
@@ -314,6 +327,13 @@
 							circle_f();
 							}	
 						}
+						else{
+							for(var i=0;i<1;i++){
+								document.getElementsByClassName('circle_fecl')[i+HIDDEN].style.display="none";
+								HIDDEN+=1;
+							}
+
+						}
 						PREVF=-(y/20)
 					}
 					else{
@@ -328,6 +348,12 @@
 						circle_water();
 						}	
 					}
+					else{
+							for(var i=0;i<1;i++){
+								document.getElementsByClassName('circle_water')[i+HIDDENW].style.display="none";
+								HIDDENW+=1;
+							}
+						}
 					PREVW=-(y/20)
 				}
 				if(event.target.parentNode.id=="meter2")
