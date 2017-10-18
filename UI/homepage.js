@@ -1,6 +1,8 @@
 var bgImageArray = [".jpg","1.jpg","2.jpg"],
 base = "cover",
 secs = 4;
+newsecs = 6;
+idx=0;
 bgImageArray.forEach(function(img){
     new Image().src = base + img; 
     // caches images, avoiding white flash between background replacements
@@ -17,9 +19,18 @@ function backgroundSequence() {
 		}, (secs * 1000) * i);	
 	}
 }
-backgroundSequence();
 
 
 function showTheory(){
-
+	window.clearTimeout();
+	setTimeout(function(){
+		console.log(idx);
+		$("#home"+String((idx+1)%3)).fadeToggle(1500);
+		$("#home"+String((idx+2)%3)).fadeToggle(1500);
+		$("#home"+String(idx%3)).fadeToggle(1500);
+		idx++;
+		showTheory();
+	}, (newsecs * 1000));	
 }
+backgroundSequence();
+showTheory();
