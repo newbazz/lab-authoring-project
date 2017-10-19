@@ -1,0 +1,17 @@
+implement better interaction
+	//add border to selected object
+	//add borders to the two interacting objects
+	move the interacting obect accordingly to make it look okay
+
+many to many interactions
+	//add properties into a data-attribute of the HTML element
+	retrieve data into menu_content_* from this data-attribute
+	dependencies in burn/cool in burner, pour/withdraw in pipette_action, add in spoon_action
+
+handle pipette's race condition
+
+*****
+
+make spoon take its powder from a cabinet sort of a thing
+experiment is finished only at 100C
+add magnetic heater instead of bunsen burner
