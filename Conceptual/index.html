@@ -4,10 +4,12 @@
 	<title>Week3</title>
 	<style type="text/css">
 		body{
-			background-color:  	#F5F5DC;
-			background-image: url('lab.jpg');
+			background-image: url('labn.jpg');
+			background-size: cover;
+			background-repeat: no-repeat;
 		}
 		#workspace{
+			z-index:2;
 			top:0px;
 			width: 100%;
 		}
@@ -34,6 +36,7 @@
 			height: 18px;
 			width: 48px;
 			background-color: red;
+			color:white;
 			transform: translate(-15px, -5px);
 			text-align: center;
 		}
@@ -187,7 +190,7 @@
 		var y=Math.floor(Math.random() * 300) + 120
 		circle.style.marginTop=String(y)+"px";
 		circle.style.marginLeft=String(x)+"px";
-		circle.style.color="blue";
+		circle.style.color="powderblue";
 		circle.style.border="solid";
 		circle.style.borderRadius="75%";
 		div1.appendChild(circle);
@@ -288,7 +291,7 @@
         gridScale:5,
         gridColor:"#eeeeee",
         data:myVinyls,
-        colors:["#A52A2A","#67b6c7", "#bccd7a","#eb9743"]
+        colors:["#A52A2A","blue", "#bccd7a","#eb9743"]
     }
 );
 		function show(){
