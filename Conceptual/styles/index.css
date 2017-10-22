@@ -1,0 +1,104 @@
+body{
+			background-image: url('labn.jpg');
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+		#workspace{
+			z-index:2;
+			top:0px;
+			width: 100%;
+		}
+		#meter1{
+			width: 100px;
+			height: 500px;
+			float:left;
+		}
+		#meter2{
+			float: left;
+			margin-left: 100px;
+			width: 100px;
+			height: 500px;
+		}
+
+		#meter3{
+			margin-left: 100px;
+			width: 100px;
+			height: 500px;
+			float: center;
+			display: none;
+		}
+		.square{
+			height: 18px;
+			width: 48px;
+			background-color: red;
+			color:white;
+			transform: translate(-15px, -5px);
+			text-align: center;
+		}
+
+		.draggable{
+			width: 18px;
+			height: 18px;
+			transform: translate(41px, 415px);
+		}
+
+		p{
+			margin:0px;
+		}
+
+		.groove{
+			margin-left: 45px;
+			width: 9px;
+			height: 400px;
+			background-color: black;
+		}
+		
+		#flask{
+			width: 300px;
+			height: 300px;
+		}
+
+		#container{
+			background-color: rgb(204, 224, 224);
+			margin-top: 250px;
+			margin-left: 130px;
+			height: 280px;
+			width: 205px;
+			border: solid;
+		}
+
+		.square1 {
+			  background: red;
+			  width: 100px;
+			  height: 100px;
+			  margin: 50px auto;
+			}
+		.circle {
+		  position: absolute;
+       	  content: ' \25CF';
+		  font-size: 20px;
+		  border-radius: 50px;
+		}
+		.circle_fecl{
+		  position: absolute;
+       	  content: ' \25CF';
+		  font-size: 20px;
+		  border-radius: 50px;
+		}
+		.circle_water {
+		  position: absolute;
+       	  content: ' \25CF';
+		  font-size: 20px;
+		  border-radius: 50px;
+		}
+		#button {
+		    background-color: #4CAF50; /* Green */
+		    border: none;
+		    color: white;
+		    margin-left:-38px;
+		    padding: 10px 20px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 16px;
+		}
