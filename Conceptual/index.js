@@ -20,7 +20,7 @@ var PREVW=0;
 	var getFnc=function(){
 		//gets amount of heat
 		//validate if the entered value is a number
-		if(1){
+		if(!isNaN(document.getElementById('heat').value)){
 			heat=document.getElementById('heat').value;
 		}
 		else{
