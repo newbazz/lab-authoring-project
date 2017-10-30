@@ -67,13 +67,13 @@ $("#cat3opt2").click(function(){ //Spatula
 })
 
 $("#cat3opt3").click(function(){ //Bunsen Burner
-	$("#workspace")[0].innerHTML+='<div onclick="burner_action('+idx+')" class="draggable drag-drop burner" id='+idx+' style="height: 150px; position: relative; display: inline-block;" data-is_bead="false"><img src="assets/burner.png" height="150px"><div class="menu" id="burner_action'+idx+'" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px"><div class="menu-header"><h6>Burner</h6></div><div class="menu-content"><ul><li id="add_bead'+idx+'">Add Bead</li><li id="burn'+idx+'">Burn</li><li id="close_burner'+idx+'" style="color: #F44336">Close</li></ul></div></div></div>'
+	$("#workspace")[0].innerHTML+='<div onclick="burner_action('+idx+')" class="draggable drag-drop burner" id='+idx+' style="height: 150px; position: relative; display: inline-block;" data-is_bead="false"><img src="assets/burner.png" height="150px"><div class="menu" id="burner_action'+idx+'" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px"><div class="menu-header"><h6>Burner</h6></div><div class="menu-content"><ul><li id="burn'+idx+'">Burn</li><li id="close_burner'+idx+'" style="color: #F44336">Close</li></ul></div></div></div>'
 	idx++;
 	idx_max++;
 })
 
 $("#cat3opt4").click(function(){ //Magnetic
-	$("#workspace")[0].innerHTML+='<div onclick="burner_action('+idx+')" class="draggable drag-drop magnetic-stirrer" id='+idx+' style="height: 150px; position: relative; display: inline-block;" data-is_bead="false"><img src="assets/magnetic-stirrer.png" height="150px"><div class="menu" id="burner_action'+idx+'" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px"><div class="menu-header"><h6>Burner</h6></div><div class="menu-content"><ul><li id="add_bead'+idx+'">Add Bead</li><li id="burn'+idx+'">Burn</li><li id="close_burner'+idx+'" style="color: #F44336">Close</li></ul></div></div></div>'
+	$("#workspace")[0].innerHTML+='<div onclick="magnetic-stirrer_action('+idx+')" class="draggable drag-drop magnetic-stirrer" id='+idx+' style="height: 150px; position: relative; display: inline-block;" data-is_bead="false"><img src="assets/magnetic-stirrer.png" height="150px"><div class="menu" id="magnetic-stirrer_action'+idx+'" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px"><div class="menu-header"><h6>Burner</h6></div><div class="menu-content"><ul><li id="add_bead'+idx+'">Add Bead</li><li id="burn'+idx+'">Burn</li><li id="close_burner'+idx+'" style="color: #F44336">Close</li></ul></div></div></div>'
 	idx++;
 	idx_max++;
 })

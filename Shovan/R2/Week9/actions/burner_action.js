@@ -1,48 +1,83 @@
 var temp=0 //Celsius
 var mass=0 //grams
-var specHeat=4.2 //J/sec
+var SPEC_HEAT=4.2 //J/sec
 var supply=0 //kJ/sec
-var surrTemp=30 //Celsius
+var SURR_TEMP=30 //Celsius
+var bool1=0
+var id2=0
 
-function add(){
-	$('#burn').mouseup(function(){
-		clearInterval(id);
+function burner_add(burner_idx){
+	$('#burn'+burner_idx).mouseup(function(){
+		clearInterval(id_burn);
 	}).mousedown(function(){
-		id=setInterval(burn, 500)
+		id_burn=setInterval(burn, 500, burner_idx)
 	})
 }
 
-function close(){
-	$('#close_burner').mouseup(function(){
-		$('#burner_action').style.display='none';
+function close_burner(burner_idx){
+	$('#close_burner'+burner_idx).mouseup(function(){
+		$('#burner_action'+burner_idx)[0].style.display='none';
 	})
 }
 
-function burn(){
-	mass=parseFloat($("[id='volume_liquid beaker']")[0].innerHTML.split(">")[2])
-	temp=parseFloat($("[id='temp beaker']")[0].innerHTML.split(">")[2])
+function burn(burner_idx){
+	which=$("#"+burner_idx)[0]
+	where=$("#"+burner_idx)[0].getAttribute("data-where")
+	where=$("#"+where)
+	mass=where[0].getAttribute("data-volume")
+	temp=parseInt(where[0].getAttribute("data-temp"))
 	supply=500
-	temp+=supply/(mass*specHeat)
-	temp=temp.toFixed(3)	
-	if(temp>=50 && $("[id='solution_name beaker']")[0].innerHTML=="<strong>Solution: </strong>Water (H<sub>2</sub>O) and Ferric Chloride (FeCl<sub>3</sub>)")
+	temp+=supply/(mass*SPEC_HEAT)
+	temp=temp.toFixed(3)
+	console.log(temp)
+	where[0].setAttribute("data-temp", temp)
+	if(temp>=100)
 	{
-		$("[id='solution_name beaker']")[0].innerHTML="<strong>Solution: </strong>Fe(OH)<sub>3</sub> Sol"
-		alert("Sol created!")
-		clearInterval(id)
+		alert("Try adding the FeCl3 solution into this")
+		clearInterval(id_burn)
+		clearInterval(id2)
 	}
 }
 
-function cool(){
-	temp=parseFloat($("[id='temp beaker']")[0].innerHTML.split(">")[2])
+function cool(burner_idx){
+	where=$("#"+burner_idx)[0].getAttribute("data-where")
+	where=$("#"+where)
+	temp=where[0].getAttribute("data-temp")
 	
 	id2=setInterval(function(){
-		temp=temp-((temp-surrTemp)*(0.01))
+		console.log(id2)
+		temp=temp-((temp-SURR_TEMP)*(0.01))
 		temp=temp.toFixed(3)
-		$("[id='temp beaker']")[0].innerHTML="<strong>Temperature: </strong>"+temp+"<sup>o</sup>C"
-		// console.log(temp)
+		where[0].setAttribute("data-temp", temp)
+		console.log(temp)
+		// $("#beaker_display"+where.id)[0].innerHTML=temp
+		if(temp>=150)
+		{
+			temp=150
+			alert("STOOOPPPPP!!!")
+			clearInterval(id_burn)
+		}
 	}, 500)
 }
 
-add();
-close();
-cool();
+function burner_action(burner_idx){
+	//Adds a boundary when clicked
+	for(i=1; i<=idx_max; i++)
+	{
+		$("#"+i)[0].style.border="hidden";
+	}
+	$("#"+burner_idx)[0].style.border="dotted";
+	$("#"+burner_idx).css('border-width', '1px');
+
+	//Takes care of some weird bug
+	if(bool1==0){
+		burner_add(burner_idx);
+		bool1=1
+	}
+	close_burner(burner_idx);
+	//All beakers should cool, so try to put this function somewhere else
+	// cool(burner_idx);
+
+	//Changes Properties Bar
+	$("#collapseroot2")[0].innerHTML="<strong>Methods:</strong><ul><li>Drag the burner here and there</li><li>Drag it into a beaker to see its actions</li><li>The temperature of the beaker's solution increases as long as you hold the 'Burn' button</li><li>On leaving the 'Burn' button, the liquid goes back to cooling according to the surrounding"
+}

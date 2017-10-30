@@ -24,6 +24,12 @@ interact('.beaker1, .flask, .cylinder, .testtube').dropzone({
 			menu=document.getElementById("burner_action"+what.id);
 			menu.style.display="block";
 		}
+		else if(what.className=='draggable drag-drop magnetic-stirrer')
+		{
+			cool(what.id)
+			menu=document.getElementById("magnetic-stirrer_action"+what.id);
+			menu.style.display="block";
+		}
 	 },
 	ondragleave: function (e) {
 		what.removeAttribute('data-where');
