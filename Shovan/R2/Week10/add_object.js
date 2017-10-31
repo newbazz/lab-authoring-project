@@ -47,7 +47,7 @@ $("#cat2opt3").click(function(){ //Microscope
 //Others
 
 $("#cat3opt1").click(function(){ //Pipette
-	$("#workspace")[0].innerHTML+="<div onclick='pipette_action("+idx+")' oncontextmenu='show_menu("+idx+")' class='draggable drag-drop pipette' id="+idx+" style='height: 150px; width: 40px; display: inline-block;'><img src='assets/pipette.svg' height='150px'><div class='menu' id='pipette_action"+idx+"' style='z-index: 100; display: none; position: absolute; left: 100px; top: 10px'><div class='menu-header'><h6>Pipette</h6></div><div class='menu-content'><ul><li id='withdraw"+idx+"'>Withdraw</li><li id='pour"+idx+"'>Pour</li><li id='close_pipette' style='color: #F44336'>Close</li></ul></div></div></div>"
+	$("#workspace")[0].innerHTML+="<div onclick='pipette_action("+idx+")' oncontextmenu='show_menu("+idx+")' class='draggable drag-drop pipette' id="+idx+" style='height: 150px; width: 40px; display: inline-block;' data-volume='0' data-solution='None'><img src='assets/pipette.svg' height='150px'><div class='menu' id='pipette_action"+idx+"' style='z-index: 100; display: none; position: absolute; left: 100px; top: 10px'><div class='menu-header'><h6>Pipette</h6></div><div class='menu-content'><ul><li id='withdraw"+idx+"'>Withdraw</li><li id='pour"+idx+"'>Pour</li><li id='close_pipette' style='color: #F44336'>Close</li></ul></div></div></div>"
 	idx++;
 	idx_max++;
 })
@@ -73,7 +73,7 @@ $("#cat3opt3").click(function(){ //Bunsen Burner
 })
 
 $("#cat3opt4").click(function(){ //Magnetic
-	$("#workspace")[0].innerHTML+='<div onclick="magnetic-stirrer_action('+idx+')" class="draggable drag-drop magnetic-stirrer" id='+idx+' style="height: 150px; position: relative; display: inline-block;" data-is_bead="false"><img src="assets/magnetic-stirrer.png" height="150px"><div class="menu" id="magnetic-stirrer_action'+idx+'" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px"><div class="menu-header"><h6>Burner</h6></div><div class="menu-content"><ul><li id="add_bead'+idx+'">Add Bead</li><li id="burn'+idx+'">Burn</li><li id="close_burner'+idx+'" style="color: #F44336">Close</li></ul></div></div></div>'
+	$("#workspace")[0].innerHTML+='<div onclick="magneticburner_action('+idx+')" class="draggable drag-drop magnetic-stirrer" id='+idx+' style="height: 150px; position: relative; display: inline-block;" data-is_bead="false"><img src="assets/magnetic-stirrer.png" height="150px"><div class="menu" id="magnetic-stirrer_action'+idx+'" style="z-index: 100; display: none; position: absolute; left: 100px; top: 10px"><div class="menu-header"><h6>Burner</h6></div><div class="menu-content"><ul><li id="add_bead'+idx+'">Add Bead</li><li id="burn'+idx+'">Burn</li><li id="close_burner'+idx+'" style="color: #F44336">Close</li></ul></div></div></div>'
 	idx++;
 	idx_max++;
 })

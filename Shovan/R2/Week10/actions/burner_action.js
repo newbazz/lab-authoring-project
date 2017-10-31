@@ -78,6 +78,7 @@ function burner_action(burner_idx){
 	//All beakers should cool, so try to put this function somewhere else
 	// cool(burner_idx);
 
-	//Changes Properties Bar
-	$("#collapseroot2")[0].innerHTML="<strong>Methods:</strong><ul><li>Drag the burner here and there</li><li>Drag it into a beaker to see its actions</li><li>The temperature of the beaker's solution increases as long as you hold the 'Burn' button</li><li>On leaving the 'Burn' button, the liquid goes back to cooling according to the surrounding"
+	//Edits the Help sidebar
+	$("#properties")[0].innerHTML="<ul><li>This has no properties</ul></li>"
+	$("#methods")[0].innerHTML="<ul><li>Drag this into a 'Storage' object to increase the contained solution's temperature</li></ul>"
 }
