@@ -9,21 +9,21 @@ body{
 			width: 100%;
 		}
 		#meter1{
-			width: 100px;
-			height: 500px;
+			width: 5.21%;
+			height: 46.3%;
 			float:left;
 		}
 		#meter2{
 			float: left;
-			margin-left: 100px;
-			width: 100px;
-			height: 500px;
+			margin-left: 5.21%;
+			width: 5.21%;
+			height: 46.3%;
 		}
 
 		#meter3{
-			margin-left: 100px;
-			width: 100px;
-			height: 500px;
+			margin-left: 5.21%;
+			width: 5.21%;
+			height: 46.3%;
 			float: center;
 			display: none;
 		}

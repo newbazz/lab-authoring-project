@@ -41,7 +41,7 @@ var PREVW=0;
 		//give style to the circle as required
 		circle.style.marginTop=String(y)+"px";
 		circle.style.marginLeft=String(x)+"px";
-		circle.style.color="powderblue";
+		circle.style.color="blue";
 		circle.style.border="solid";
 		circle.style.borderRadius="75%";
 		div1.appendChild(circle);
