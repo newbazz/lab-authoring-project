@@ -1,0 +1,10 @@
+Time: 2:00 PM
+
+==> Make changes in the conceptual part:
+      1) Improve interface (Remove whitespaces and align elements)
+      2) Make it more intuitive and interactive to the user
+      
+==> Make code literate.
+      1) Add comments
+      2) Make methods names and variable names such that they are more readable
+      3) Add narration
