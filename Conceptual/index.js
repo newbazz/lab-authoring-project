@@ -35,9 +35,9 @@ var PREVW=0;
 		circle.className = 'circle_water';
 		//left -700 -300
 		// top 100 400
-		var x=Math.floor(Math.random() * 300) +390
+		var x=Math.floor(Math.random() * 300) + (-140)
 		x*=-1;
-		var y=Math.floor(Math.random() * 300) + 120
+		var y=Math.floor(Math.random() * 300) + 20
 		//give style to the circle as required
 		circle.style.marginTop=String(y)+"px";
 		circle.style.marginLeft=String(x)+"px";
@@ -53,9 +53,9 @@ var PREVW=0;
 		circle.className = 'circle_fecl';
 		//left -700 -300
 		// top 100 400
-		var x=Math.floor(Math.random() * 300) + 390
+		var x=Math.floor(Math.random() * 300) + (-140) //390
 		x*=-1;
-		var y=Math.floor(Math.random() * 300) + 120
+		var y=Math.floor(Math.random() * 300) + 20 //120
 		//style to make it fecl3 particle
 		circle.style.marginTop=String(y)+"px";
 		circle.style.marginLeft=String(x)+"px";
