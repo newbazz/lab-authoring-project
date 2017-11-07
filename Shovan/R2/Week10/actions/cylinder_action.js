@@ -10,6 +10,6 @@ function cylinder_action(cylinder_idx)
 
 //Edits the Help sidebar
 	var clicked=$("#"+cylinder_idx)[0]
-	$("#properties")[0].innerHTML="<ul><li>Volume: "+clicked.getAttribute("data-volume")+"</li><li>Solution Name: "+clicked.getAttribute("data-solution")+"</li><li>Temperature: "+clicked.getAttribute("data-temp")+"</li></ul>"
+	$("#properties")[0].innerHTML="<ul><li>Volume: "+clicked.getAttribute("data-volume")+"</li><li>Maximum Volume: "+clicked.getAttribute("data-maxvolume")+"</li><li>Solution Name: "+clicked.getAttribute("data-solution")+"</li><li>Temperature: "+clicked.getAttribute("data-temp")+"</li></ul>"
 	$("#methods")[0].innerHTML="<ul><li>Drag the cylinder here and there</li><li>Drag other objects into the cylinder to see their actions.</li></ul>"
 }

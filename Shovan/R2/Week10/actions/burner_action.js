@@ -1,4 +1,3 @@
-var temp=0 //Celsius
 var mass=0 //grams
 var SPEC_HEAT=4.2 //J/sec
 var supply=0 //kJ/sec
@@ -10,7 +9,7 @@ function burner_add(burner_idx){
 	$('#burn'+burner_idx).mouseup(function(){
 		clearInterval(id_burn);
 	}).mousedown(function(){
-		id_burn=setInterval(burn, 500, burner_idx)
+		id_burn=setInterval(burner_burn, 500, burner_idx)
 	})
 }
 
@@ -20,18 +19,26 @@ function close_burner(burner_idx){
 	})
 }
 
-function burn(burner_idx){
-	which=$("#"+burner_idx)[0]
-	where=$("#"+burner_idx)[0].getAttribute("data-where")
+function burner_burn(burner_idx){
+	var which=$("#"+burner_idx)[0]
+	var where=$("#"+burner_idx)[0].getAttribute("data-where")
 	where=$("#"+where)
-	mass=where[0].getAttribute("data-volume")
-	temp=parseInt(where[0].getAttribute("data-temp"))
+	var volume=parseFloat(where[0].getAttribute("data-volume"))
+	var density=parseFloat(where[0].getAttribute("data-density"))
+	var mass=volume*density
+	var temp=parseFloat(where[0].getAttribute("data-temp"))
 	supply=500
 	temp+=supply/(mass*SPEC_HEAT)
 	temp=temp.toFixed(3)
 	console.log(temp)
 	where[0].setAttribute("data-temp", temp)
-	if(temp>=100)
+	if(temp>=150)
+	{
+		temp=150
+		alert("STOOOPPPPP!!!")
+		clearInterval(id_burn)
+	}
+	else if(temp>=130)
 	{
 		alert("Try adding the FeCl3 solution into this")
 		clearInterval(id_burn)
@@ -39,26 +46,26 @@ function burn(burner_idx){
 	}
 }
 
-function cool(burner_idx){
-	where=$("#"+burner_idx)[0].getAttribute("data-where")
-	where=$("#"+where)
-	temp=where[0].getAttribute("data-temp")
+// function cool_burner(burner_idx){
+// 	where=$("#"+burner_idx)[0].getAttribute("data-where")
+// 	where=$("#"+where)
+// 	temp=where[0].getAttribute("data-temp")
 	
-	id2=setInterval(function(){
-		console.log(id2)
-		temp=temp-((temp-SURR_TEMP)*(0.01))
-		temp=temp.toFixed(3)
-		where[0].setAttribute("data-temp", temp)
-		console.log(temp)
-		// $("#beaker_display"+where.id)[0].innerHTML=temp
-		if(temp>=150)
-		{
-			temp=150
-			alert("STOOOPPPPP!!!")
-			clearInterval(id_burn)
-		}
-	}, 500)
-}
+// 	id2=setInterval(function(){
+// 		console.log(id2)
+// 		temp=temp-((temp-SURR_TEMP)*(0.01))
+// 		temp=temp.toFixed(3)
+// 		where[0].setAttribute("data-temp", temp)
+// 		console.log(temp)
+// 		// $("#beaker_display"+where.id)[0].innerHTML=temp
+// 		if(temp>=150)
+// 		{
+// 			temp=150
+// 			alert("STOOOPPPPP!!!")
+// 			clearInterval(id_burn)
+// 		}
+// 	}, 500)
+// }
 
 function burner_action(burner_idx){
 	//Adds a boundary when clicked
@@ -80,5 +87,5 @@ function burner_action(burner_idx){
 
 	//Edits the Help sidebar
 	$("#properties")[0].innerHTML="<ul><li>This has no properties</ul></li>"
-	$("#methods")[0].innerHTML="<ul><li>Drag this into a 'Storage' object to increase the contained solution's temperature</li></ul>"
+	$("#methods")[0].innerHTML="<ul><li>Drag this into a container to increase the contained solution's temperature</li></ul>"
 }

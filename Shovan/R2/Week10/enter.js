@@ -7,27 +7,24 @@ interact('.beaker1, .flask, .cylinder, .testtube').dropzone({
 		beaker.style.border="dotted"
 		beaker.style.borderWidth="1px"
 		what.setAttribute('data-where', beaker.id);
-
 		if(what.className=='draggable drag-drop pipette')
 		{
 			menu=document.getElementById("pipette_action"+what.id);
 			menu.style.display="block";
 		}
-		else if(what.className=='draggable drag-drop spoon')
+		else if(what.className=='draggable drag-drop spatula')
 		{
-			menu=document.getElementById("spoon_action"+what.id);
+			menu=document.getElementById("spatula_action"+what.id);
 			menu.style.display="block";			
 		}
 		else if(what.className=='draggable drag-drop burner')
 		{
-			cool(what.id)
 			menu=document.getElementById("burner_action"+what.id);
 			menu.style.display="block";
 		}
 		else if(what.className=='draggable drag-drop magnetic-stirrer')
 		{
-			cool(what.id)
-			menu=document.getElementById("magnetic-stirrer_action"+what.id);
+			menu=document.getElementById("magneticburner_action"+what.id);
 			menu.style.display="block";
 		}
 	 },
@@ -38,9 +35,9 @@ interact('.beaker1, .flask, .cylinder, .testtube').dropzone({
 			menu=document.getElementById("pipette_action"+what.id);
 			menu.style.display="none";
 		}
-		else if(what.className=='draggable drag-drop spoon')
+		else if(what.className=='draggable drag-drop spatula')
 		{
-			menu=document.getElementById("spoon_action"+what.id);
+			menu=document.getElementById("spatula_action"+what.id);
 			menu.style.display="none";			
 		}
 		else if(what.className=='draggable drag-drop burner')
@@ -59,9 +56,14 @@ interact('.remove').dropzone({
 	ondragenter: function(e){
 		where=e.target
 		what=e.relatedTarget
-		console.log(where, where.style.backgroundColor)
 		where.style.backgroundColor="blue"
 		$(".removecross")[0].style.display="block"
+	},
+	ondragleave: function (e) {
+		where=e.target
+		what=e.relatedTarget
+		where.style.backgroundColor="white"
+		$(".removecross")[0].style.display="none"
 	}
 });
 
@@ -71,6 +73,7 @@ interact('.removecross').dropzone({
 	ondragenter: function(e){
 		where=e.target
 		what=e.relatedTarget
+		$("#"+what.id)[0].style.height=0
 		$("#"+what.id).empty()
 		$("#"+what.id).removeClass("draggable")
 		$(".remove")[0].style.backgroundColor="white"
