@@ -24,7 +24,9 @@ var PREVW=0;
 			heat=document.getElementById('heat').value;
 		}
 		else{
-			window.alert('Enter a number');
+			document.getElementById('message').innerHTML = "Enter a number";
+			setTimeout(function(){document.getElementById('message').innerHTML = "";},10000);
+			// window.alert('Enter a number');
 		}
 		document.getElementById('heat').value=null;
 	}
@@ -157,7 +159,10 @@ var PREVW=0;
 );
 		function show(){
 			if(myVinyls["Solvent"]==0){
-					window.alert('Please Add Some Solvent');
+					x = document.getElementById('message');
+					x.innerHTML = 'Please Add Some Solvent  |  Water proportion is zero  |  Drag the water bar up to increase the proportion of water';
+					setTimeout(function(){ x.innerHTML = null; }, 3000); 
+					//window.alert('Please Add Some Solvent');
 			}
 			else{
 				myBarchart.draw();
@@ -173,7 +178,17 @@ var PREVW=0;
 		function dragMoveListener (event) {
 			if(event.target.id=="solute"){
 				if(heat==0){
-					window.alert('heat it first');
+					x = document.getElementById('message');
+					x.innerHTML = 'Heat the solution before adding solute(FeCl3) to make colloids  |  Add the temperature in the input box';
+					setTimeout(function(){ x.innerHTML = null; }, 3000); 
+					//window.alert('heat it first');
+					return;
+				}
+				else if(heat<30)
+				{
+					x = document.getElementById('message');
+					x.innerHTML = 'The temperature of the solution is less than required to make colloid  |  Please increase the temperature';
+					setTimeout(function(){ x.innerHTML = null; }, 3000); 
 					return;
 				}	
 			}
@@ -206,6 +221,9 @@ var PREVW=0;
 						PREVF=-(y/20)
 					}
 					else{
+						x = document.getElementById('message');
+						x.innerHTML = 'Please Add Some Solvent  |  Water proportion is zero  |  Drag the water bar up to increase the proportion of water';
+						setTimeout(function(){ x.innerHTML = null; }, 3000); 
 						window.alert('heat more to see the effect');
 						return;
 					}
