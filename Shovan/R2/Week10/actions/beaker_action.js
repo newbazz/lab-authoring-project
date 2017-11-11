@@ -10,6 +10,6 @@ function beaker_action(beaker_idx)
 
 	var clicked=$("#"+beaker_idx)[0]
 	//Edits the Help sidebar
-	$("#properties")[0].innerHTML="<ul><li>Volume: "+clicked.getAttribute("data-volume")+"</li><li>Solution Name: "+clicked.getAttribute("data-solution")+"</li><li>Temperature: "+clicked.getAttribute("data-temp")+"</li></ul>"
+	$("#properties")[0].innerHTML="<ul><li>Volume: "+clicked.getAttribute("data-volume")+"</li><li>Maximum Volume: "+clicked.getAttribute("data-maxvolume")+"</li><li>Solution Name: "+clicked.getAttribute("data-solution")+"</li><li>Temperature: "+clicked.getAttribute("data-temp")+"</li></ul>"
 	$("#methods")[0].innerHTML="<ul><li>Drag the beaker here and there</li><li>Drag other objects into the beaker to see their actions.</li></ul>"
 }

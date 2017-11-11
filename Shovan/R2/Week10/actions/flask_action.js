@@ -10,6 +10,6 @@ function flask_action(flask_idx)
 
 	//Edits the Help sidebar
 	var clicked=$("#"+flask_idx)[0]
-	$("#properties")[0].innerHTML="<ul><li>Volume: "+clicked.getAttribute("data-volume")+"</li><li>Solution Name: "+clicked.getAttribute("data-solution")+"</li><li>Temperature: "+clicked.getAttribute("data-temp")+"</li></ul>"
+	$("#properties")[0].innerHTML="<ul><li>Volume: "+clicked.getAttribute("data-volume")+"</li><li>Maximum Volume: "+clicked.getAttribute("data-maxvolume")+"</li><li>Solution Name: "+clicked.getAttribute("data-solution")+"</li><li>Temperature: "+clicked.getAttribute("data-temp")+"</li></ul>"
 	$("#methods")[0].innerHTML="<ul><li>Drag the flask here and there</li><li>Drag other objects into the flask to see their actions.</li></ul>"
 }
